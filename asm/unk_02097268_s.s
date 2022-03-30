@@ -5,113 +5,12 @@
 #include "constants/species.h"
 	.include "asm/macros.inc"
 	.include "global.inc"
-
+	.global _02108EEE
+	.extern sub_020972A4
+	.extern sub_020972C4
+	.extern sub_020972EC
 	.text
 
-	thumb_func_start sub_02097268
-sub_02097268: ; 0x02097268
-	push {r3, r4, r5, lr}
-	add r5, r0, #0
-	add r4, r2, #0
-	cmp r1, #0x18
-	blt _02097278
-	bl GF_AssertFail
-	mov r1, #0
-_02097278:
-	lsl r0, r1, #1
-	add r2, r1, r0
-	ldr r0, _020972A0 ; =_02108EEE
-	add r1, r0, r2
-	ldrb r0, [r0, r2]
-	strb r0, [r5]
-	ldrb r0, [r1, #1]
-	strb r0, [r5, #1]
-	ldrb r0, [r1, #2]
-	strb r0, [r5, #2]
-	ldrb r0, [r5, #1]
-	lsl r0, r0, #0x18
-	lsr r0, r0, #0x1f
-	beq _0209729E
-	cmp r4, #1
-	bne _0209729E
-	ldrb r0, [r5]
-	add r0, r0, #1
-	strb r0, [r5]
-_0209729E:
-	pop {r3, r4, r5, pc}
-	.balign 4, 0
-_020972A0: .word _02108EEE
-	thumb_func_end sub_02097268
-
-	thumb_func_start sub_020972A4
-sub_020972A4: ; 0x020972A4
-	ldr r3, [r0]
-	ldr r2, [r1]
-	cmp r3, r2
-	bne _020972BC
-	ldrh r3, [r0, #4]
-	ldrh r2, [r1, #4]
-	cmp r3, r2
-	bne _020972BC
-	ldrh r2, [r0, #6]
-	ldrh r0, [r1, #6]
-	cmp r2, r0
-	beq _020972C0
-_020972BC:
-	mov r0, #0
-	bx lr
-_020972C0:
-	mov r0, #1
-	bx lr
-	thumb_func_end sub_020972A4
-
-	thumb_func_start sub_020972C4
-sub_020972C4: ; 0x020972C4
-	push {r4, r5, r6, lr}
-	add r5, r0, #0
-	add r4, r1, #0
-	mov r6, #0
-_020972CC:
-	add r0, r5, #0
-	add r1, r4, #0
-	bl sub_020972A4
-	cmp r0, #0
-	bne _020972DC
-	mov r0, #0
-	pop {r4, r5, r6, pc}
-_020972DC:
-	add r6, r6, #1
-	add r4, #8
-	add r5, #8
-	cmp r6, #0xa
-	blt _020972CC
-	mov r0, #1
-	pop {r4, r5, r6, pc}
-	.balign 4, 0
-	thumb_func_end sub_020972C4
-
-	thumb_func_start sub_020972EC
-sub_020972EC: ; 0x020972EC
-	push {r3, r4}
-	mov r4, #0
-	cmp r2, #0
-	ble _02097306
-_020972F4:
-	ldrb r3, [r1, r4]
-	cmp r0, r3
-	bne _02097300
-	mov r0, #1
-	pop {r3, r4}
-	bx lr
-_02097300:
-	add r4, r4, #1
-	cmp r4, r2
-	blt _020972F4
-_02097306:
-	mov r0, #0
-	pop {r3, r4}
-	bx lr
-	thumb_func_end sub_020972EC
 
 	thumb_func_start sub_0209730C
 sub_0209730C: ; 0x0209730C
