@@ -15,10 +15,10 @@
 scr_seq_R03_001:
 	play_se SEQ_SE_DP_SELECT
 	lockall
-	scrcmd_517 386, VAR_SPECIAL_RESULT
+	scrcmd_517 SPECIES_DEOXYS, VAR_SPECIAL_RESULT
 	compare VAR_SPECIAL_RESULT, 0
 	goto_if_eq _02DF
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 386
 	goto_if_eq _0050
@@ -58,10 +58,10 @@ _00BE:
 scr_seq_R03_002:
 	play_se SEQ_SE_DP_SELECT
 	lockall
-	scrcmd_517 386, VAR_SPECIAL_RESULT
+	scrcmd_517 SPECIES_DEOXYS, VAR_SPECIAL_RESULT
 	compare VAR_SPECIAL_RESULT, 0
 	goto_if_eq _02DF
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 386
 	goto_if_eq _0107
@@ -107,10 +107,10 @@ _018C:
 scr_seq_R03_003:
 	play_se SEQ_SE_DP_SELECT
 	lockall
-	scrcmd_517 386, VAR_SPECIAL_RESULT
+	scrcmd_517 SPECIES_DEOXYS, VAR_SPECIAL_RESULT
 	compare VAR_SPECIAL_RESULT, 0
 	goto_if_eq _02DF
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 386
 	goto_if_eq _01D5
@@ -143,10 +143,10 @@ _022C:
 scr_seq_R03_004:
 	play_se SEQ_SE_DP_SELECT
 	lockall
-	scrcmd_517 386, VAR_SPECIAL_RESULT
+	scrcmd_517 SPECIES_DEOXYS, VAR_SPECIAL_RESULT
 	compare VAR_SPECIAL_RESULT, 0
 	goto_if_eq _02DF
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 386
 	goto_if_eq _0275

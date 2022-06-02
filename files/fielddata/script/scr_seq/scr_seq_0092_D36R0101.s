@@ -95,13 +95,13 @@ scr_seq_D36R0101_021:
 	end
 
 _016F:
-	move_person obj_D36R0101_gsoldman1, 15, 0, 58, 1
-	move_person obj_D36R0101_tsure_poke_static_pichu_spiky, 15, 0, 59, 3
+	move_person_facing obj_D36R0101_gsoldman1, 15, 0, 58, DIR_SOUTH
+	move_person_facing obj_D36R0101_tsure_poke_static_pichu_spiky, 15, 0, 59, DIR_EAST
 	return
 
 _0189:
-	move_person obj_D36R0101_var_1, 15, 0, 58, 1
-	move_person obj_D36R0101_tsure_poke_static_marill, 11, 0, 58, 3
+	move_person_facing obj_D36R0101_var_1, 15, 0, 58, DIR_SOUTH
+	move_person_facing obj_D36R0101_tsure_poke_static_marill, 11, 0, 58, DIR_EAST
 	return
 
 scr_seq_D36R0101_001:
@@ -230,7 +230,7 @@ _0346:
 	wait 20, VAR_SPECIAL_x8004
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_D36R0101, 0, 15, 65, 0
+	warp MAP_D36R0101, 0, 15, 65, DIR_NORTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	wait 5, VAR_SPECIAL_x8004
@@ -592,7 +592,7 @@ _08DF:
 	wait 20, VAR_SPECIAL_x8004
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_D36R0101, 0, 15, 65, 0
+	warp MAP_D36R0101, 0, 15, 65, DIR_NORTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	wait 5, VAR_SPECIAL_x8004
@@ -1226,7 +1226,7 @@ _1207:
 	wait 20, VAR_SPECIAL_x8004
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_D36R0101, 0, 15, 65, 0
+	warp MAP_D36R0101, 0, 15, 65, DIR_NORTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	wait 5, VAR_SPECIAL_x8004
@@ -1316,7 +1316,7 @@ _1371:
 	npc_msg msg_0115_D36R0101_00032
 _1374:
 	closemsg
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 50
 	goto_if_eq _13D5
@@ -1615,7 +1615,7 @@ scr_seq_D36R0101_012:
 	goto_if_ge _17C1
 	compare VAR_UNK_412B, 1
 	goto_if_eq _1803
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	follower_poke_is_event_trigger 0, VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 0
 	goto_if_ne _17B7
@@ -1629,7 +1629,7 @@ _17C1:
 	compare VAR_UNK_40FE, 4
 	goto_if_ge _1803
 	goto_if_unset FLAG_BEAT_RADIO_TOWER_ROCKETS, _1803
-	get_lead_mon_index VAR_TEMP_x4006
+	get_party_lead_alive VAR_TEMP_x4006
 	follower_poke_is_event_trigger 3, VAR_TEMP_x4006, VAR_TEMP_x4007
 	compare VAR_TEMP_x4007, 0
 	goto_if_ne _17FD
@@ -2226,7 +2226,7 @@ _1F48:
 	clearflag FLAG_HIDE_ROUTE_22_GIOVANNI_RIVAL
 	clearflag FLAG_HIDE_ROUTE_22_FRIEND
 	setflag FLAG_HIDE_ILEX_FOREST_FRIEND
-	warp MAP_R22, 0, 954, 280, 1
+	warp MAP_R22, 0, 954, 280, DIR_SOUTH
 	fade_screen 6, 15, 1, RGB_WHITE
 	wait_fade
 	releaseall

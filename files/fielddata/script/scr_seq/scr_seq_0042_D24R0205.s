@@ -23,7 +23,7 @@ scr_seq_D24R0205_008:
 	goto _009D
 
 _003D:
-	get_lead_mon_index VAR_TEMP_x4005
+	get_party_lead_alive VAR_TEMP_x4005
 	compare VAR_UNK_4102, 1
 	goto_if_eq _0061
 	compare VAR_UNK_4102, 2
@@ -176,7 +176,7 @@ scr_seq_D24R0205_006:
 	play_se SEQ_SE_DP_KAIDAN2
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_D51R0201, 0, 16, 24, 1
+	warp MAP_D51R0201, 0, 16, 24, DIR_SOUTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	releaseall
@@ -298,7 +298,7 @@ scr_seq_D24R0205_009:
 	play_se SEQ_SE_DP_KAIDAN2
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_D51R0201, 0, 16, 24, 1
+	warp MAP_D51R0201, 0, 16, 24, DIR_SOUTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	releaseall

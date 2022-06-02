@@ -11,7 +11,7 @@
 scr_seq_T11R0703_000:
 	scrcmd_609
 	lockall
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 479
 	goto_if_ne _018C
@@ -44,7 +44,7 @@ _008C:
 	call _00F4
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_T11R0701, 0, 3, 3, 1
+	warp MAP_T11R0701, 0, 3, 3, DIR_SOUTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	releaseall
@@ -55,7 +55,7 @@ _00C0:
 	call _00F4
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_T11R0702, 0, 7, 3, 1
+	warp MAP_T11R0702, 0, 7, 3, DIR_SOUTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	releaseall
@@ -140,7 +140,7 @@ _01F0:
 	call _00FE
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_T11R0702, 0, 7, 3, 1
+	warp MAP_T11R0702, 0, 7, 3, DIR_SOUTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	releaseall
@@ -151,7 +151,7 @@ _0224:
 	call _00FE
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_T11R0701, 0, 3, 3, 1
+	warp MAP_T11R0701, 0, 3, 3, DIR_SOUTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
 	releaseall

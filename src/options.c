@@ -13,7 +13,7 @@ void Options_copy(OPTIONS* src, OPTIONS* dest) {
 }
 
 void Options_init(OPTIONS* options) {
-    MI_CpuFill8(options, 0, sizeof(OPTIONS));
+    MI_CpuClear8(options, sizeof(OPTIONS));
 
     options->textSpeed = 1;   // mid speed
     options->soundMethod = 0; // stereo
@@ -47,7 +47,7 @@ void Options_SetTextSpeed(OPTIONS* options, u32 textSpeed) {
     options->textSpeed = textSpeed;
 }
 
-u32 Options_GetTextFrameDelay(OPTIONS* options) {
+u8 Options_GetTextFrameDelay(OPTIONS* options) {
     u16 textSpeed = Options_GetTextSpeed(options);
 
     if (textSpeed == 0) {

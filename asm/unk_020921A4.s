@@ -189,7 +189,7 @@ _020922C4:
 	str r0, [sp, #4]
 	ldr r0, [r4, #0x18]
 	mov r3, #2
-	bl sub_0200E644
+	bl LoadUserFrameGfx2
 	mov r1, #0
 	str r1, [sp]
 	ldr r0, [r4]
@@ -197,7 +197,7 @@ _020922C4:
 	str r0, [sp, #4]
 	ldr r0, [r4, #0x18]
 	mov r3, #3
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	ldr r2, [r4]
 	mov r0, #0
 	mov r1, #0x20
@@ -270,7 +270,7 @@ sub_020923CC: ; 0x020923CC
 	mov r2, #0xe5
 	bl NewMsgDataFromNarc
 	str r0, [r4, #0x1c]
-	bl sub_02020080
+	bl ResetAllTextPrinters
 	mov r0, #0
 	str r0, [r4, #0xc]
 	add r1, r4, #0
@@ -547,7 +547,7 @@ _020925F0:
 	ldr r0, [r5, #0x10]
 	lsl r0, r0, #0x18
 	lsr r0, r0, #0x18
-	bl sub_02020094
+	bl TextPrinterCheckActive
 	cmp r0, #0
 	bne _02092628
 	ldr r0, [r5, #0x14]

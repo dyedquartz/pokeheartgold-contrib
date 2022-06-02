@@ -187,7 +187,7 @@ _021E5A4A:
 	str r0, [r4, #0x30]
 	b _021E5A82
 _021E5A5A:
-	bl sub_02025358
+	bl System_GetTouchNew
 	cmp r0, #0
 	bne _021E5A6C
 	ldr r0, _021E5A98 ; =gSystem
@@ -345,7 +345,7 @@ _021E5B88:
 	str r0, [r4, #0x30]
 	b _021E5BC6
 _021E5BA0:
-	bl sub_02025358
+	bl System_GetTouchNew
 	cmp r0, #0
 	bne _021E5BB2
 	ldr r0, _021E5BDC ; =gSystem
@@ -1056,7 +1056,7 @@ ov111_021E60D4: ; 0x021E60D4
 	mov r2, #0x83
 	mov r1, #0
 	lsl r2, r2, #0xe
-	bl sub_02009FC8
+	bl G2dRenderer_SetSubSurfaceCoords
 	mov r0, #0x10
 	mov r1, #1
 	bl GX_EngineAToggleLayers
@@ -1952,7 +1952,7 @@ ov111_021E67EC: ; 0x021E67EC
 	ldr r0, [r4, #0x18]
 	bl ScrStrBufs_new
 	str r0, [r4, #8]
-	bl sub_02020080
+	bl ResetAllTextPrinters
 	ldr r1, [r4, #0x30]
 	ldr r0, [r4]
 	lsl r1, r1, #0xd
@@ -2012,7 +2012,7 @@ ov111_021E6888: ; 0x021E6888
 	beq _021E68BC
 	lsl r0, r1, #0x18
 	lsr r0, r0, #0x18
-	bl sub_02020094
+	bl TextPrinterCheckActive
 	cmp r0, #0
 	bne _021E68B8
 	ldr r1, [r4, #0x30]
@@ -2261,7 +2261,7 @@ ov111_021E6A44: ; 0x021E6A44
 	add r1, r6, #0
 	mov r3, #0xd
 	str r4, [sp, #4]
-	bl sub_0200E644
+	bl LoadUserFrameGfx2
 	add sp, #8
 	pop {r4, r5, r6, pc}
 	nop
@@ -2318,7 +2318,7 @@ _021E6A92:
 	add r0, r5, #0
 	add r1, r7, #0
 	mov r3, #0xd
-	bl sub_0200E644
+	bl LoadUserFrameGfx2
 _021E6ADE:
 	ldr r0, [sp, #0x40]
 	bl Options_GetTextFrameDelay

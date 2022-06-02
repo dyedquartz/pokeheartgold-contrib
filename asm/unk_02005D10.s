@@ -531,8 +531,8 @@ _0200612E:
 	.balign 4, 0
 	thumb_func_end sub_02006118
 
-	thumb_func_start sub_02006134
-sub_02006134: ; 0x02006134
+	thumb_func_start PlaySE_SetPitch
+PlaySE_SetPitch: ; 0x02006134
 	push {r4, r5, r6, lr}
 	add r5, r0, #0
 	add r4, r1, #0
@@ -548,7 +548,7 @@ _0200614C:
 	pop {r4, r5, r6, pc}
 	.balign 4, 0
 _02006150: .word 0x0000FFFF
-	thumb_func_end sub_02006134
+	thumb_func_end PlaySE_SetPitch
 
 	thumb_func_start StopSE
 StopSE: ; 0x02006154
@@ -1417,7 +1417,7 @@ _0200685C:
 	ldr r0, _02006880 ; =sub_02006884
 	add r1, r4, #0
 	str r5, [r4]
-	bl sub_0200E320
+	bl CreateSysTask
 	str r0, [r4, #4]
 	str r0, [r6]
 	pop {r4, r5, r6, pc}
@@ -1493,7 +1493,7 @@ sub_020068F8: ; 0x020068F8
 	bl sub_0201F988
 	add r5, r0, #0
 	ldr r0, [r4]
-	bl sub_0200E390
+	bl DestroySysTask
 	add r0, r5, #0
 	bl FreeToHeap
 _0200691A:

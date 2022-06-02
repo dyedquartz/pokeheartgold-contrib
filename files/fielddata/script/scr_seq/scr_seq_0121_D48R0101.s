@@ -15,17 +15,17 @@
 	scrdef_end
 
 scr_seq_D48R0101_005:
-	compare VAR_UNK_40F9, 2
+	compare VAR_SCENE_EMBEDDED_TOWER, 2
 	goto_if_eq _0031
-	setflag FLAG_UNK_2CE
+	setflag FLAG_HIDE_CLIFFS_EDGE_GATE_CHUCK
 	end
 
 _0031:
-	clearflag FLAG_UNK_2CE
+	clearflag FLAG_HIDE_CLIFFS_EDGE_GATE_CHUCK
 	end
 
 scr_seq_D48R0101_006:
-	compare VAR_UNK_40F9, 2
+	compare VAR_SCENE_EMBEDDED_TOWER, 2
 	goto_if_eq _0046
 	end
 
@@ -33,7 +33,7 @@ _0046:
 	get_player_facing VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 2
 	goto_if_eq _0065
-	move_person obj_D48R0101_gsleader5, 19, 0, 40, 1
+	move_person_facing obj_D48R0101_gsleader5, 19, 0, 40, DIR_SOUTH
 	end
 
 _0065:
@@ -87,9 +87,9 @@ _010F:
 _0117:
 	wait_movement
 	play_se SEQ_SE_DP_KAIDAN2
-	setflag FLAG_UNK_2CE
+	setflag FLAG_HIDE_CLIFFS_EDGE_GATE_CHUCK
 	hide_person obj_D48R0101_gsleader5
-	setvar VAR_UNK_40F9, 3
+	setvar VAR_SCENE_EMBEDDED_TOWER, 3
 	releaseall
 	end
 	.byte 0x00

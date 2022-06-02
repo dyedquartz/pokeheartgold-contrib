@@ -2677,7 +2677,7 @@ ov86_021E6E98: ; 0x021E6E98
 	mov r2, #2
 	mov r1, #0
 	lsl r2, r2, #0x14
-	bl sub_02009FC8
+	bl G2dRenderer_SetSubSurfaceCoords
 	mov r0, #0xb8
 	mov r1, #0x79
 	bl NARC_ctor
@@ -3445,7 +3445,7 @@ ov86_021E74F0: ; 0x021E74F0
 	ldr r2, _021E7528 ; =0x000003E2
 	mov r1, #4
 	mov r3, #0xe
-	bl sub_0200E644
+	bl LoadUserFrameGfx2
 	mov r1, #0x1a
 	mov r0, #4
 	lsl r1, r1, #4

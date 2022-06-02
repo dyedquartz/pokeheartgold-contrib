@@ -29,8 +29,8 @@ scr_seq_D35R0103_002:
 	end
 
 _004F:
-	move_person obj_D35R0103_babyboy1_9, 29, 0, 22, 0
-	move_person obj_D35R0103_babyboy1_9_2, 29, 0, 22, 0
+	move_person_facing obj_D35R0103_babyboy1_9, 29, 0, 22, DIR_NORTH
+	move_person_facing obj_D35R0103_babyboy1_9_2, 29, 0, 22, DIR_NORTH
 	compare VAR_UNK_40AC, 10
 	goto_if_ge _00B0
 	compare VAR_UNK_40A9, 4
@@ -41,8 +41,8 @@ _0083:
 	compare VAR_TEMP_x4007, 0
 	goto_if_ne _00B0
 	setvar VAR_TEMP_x4007, 77
-	move_person obj_D35R0103_wataru, 39, 0, 18, 0
-	move_person obj_D35R0103_tsure_poke_static_dragonite, 40, 0, 18, 0
+	move_person_facing obj_D35R0103_wataru, 39, 0, 18, DIR_NORTH
+	move_person_facing obj_D35R0103_tsure_poke_static_dragonite, 40, 0, 18, DIR_NORTH
 	end
 
 _00B0:
@@ -61,7 +61,7 @@ _00BF:
 	setflag FLAG_UNK_96B
 	hide_person obj_D35R0103_tsure_poke_static_electrode
 	hide_person obj_D35R0103_tsure_poke_static_electrode_4
-	setflag FLAG_UNK_1F5
+	setflag FLAG_HIDE_ROCKET_HIDEOUT_B3F_ELECTRODE_1_AND_4
 	goto _0127
 
 _00F4:
@@ -70,14 +70,14 @@ _00F4:
 	setflag FLAG_UNK_96C
 	hide_person obj_D35R0103_tsure_poke_static_electrode_2
 	hide_person obj_D35R0103_tsure_poke_static_electrode_5
-	setflag FLAG_UNK_1F6
+	setflag FLAG_HIDE_ROCKET_HIDEOUT_B3F_ELECTRODE_2_AND_5
 	goto _0127
 
 _0117:
 	setflag FLAG_UNK_96D
 	hide_person obj_D35R0103_tsure_poke_static_electrode_3
 	hide_person obj_D35R0103_tsure_poke_static_electrode_6
-	setflag FLAG_UNK_1F7
+	setflag FLAG_HIDE_ROCKET_HIDEOUT_B3F_ELECTRODE_3_AND_6
 _0127:
 	clearflag FLAG_ENGAGING_STATIC_POKEMON
 	end
@@ -294,8 +294,8 @@ scr_seq_D35R0103_003:
 	clearflag FLAG_HIDE_ROCKET_HIDEOUT_B2F_ARIANA
 	show_person obj_D35R0103_rkanbuw
 	show_person obj_D35R0103_rocketm_4
-	move_person obj_D35R0103_rkanbuw, 32, 1, 30, 3
-	move_person obj_D35R0103_rocketm_4, 30, 1, 30, 0
+	move_person_facing obj_D35R0103_rkanbuw, 32, 1, 30, DIR_EAST
+	move_person_facing obj_D35R0103_rocketm_4, 30, 1, 30, DIR_NORTH
 	scrcmd_081 0
 	play_bgm SEQ_GS_EYE_ROCKET
 	scrcmd_602 0
@@ -323,8 +323,8 @@ _0436:
 	clearflag FLAG_UNK_1E5
 	show_person obj_D35R0103_wataru
 	show_person obj_D35R0103_tsure_poke_static_dragonite
-	move_person obj_D35R0103_wataru, 20, 1, 25, 3
-	move_person obj_D35R0103_tsure_poke_static_dragonite, 19, 1, 25, 0
+	move_person_facing obj_D35R0103_wataru, 20, 1, 25, DIR_EAST
+	move_person_facing obj_D35R0103_tsure_poke_static_dragonite, 19, 1, 25, DIR_NORTH
 	apply_movement obj_D35R0103_wataru, _067C
 	apply_movement obj_D35R0103_tsure_poke_static_dragonite, _0684
 	wait_movement
@@ -348,8 +348,8 @@ _0436:
 	closemsg
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	move_person obj_D35R0103_wataru, 28, 1, 24, 1
-	move_person obj_D35R0103_tsure_poke_static_dragonite, 27, 1, 24, 3
+	move_person_facing obj_D35R0103_wataru, 28, 1, 24, DIR_SOUTH
+	move_person_facing obj_D35R0103_tsure_poke_static_dragonite, 27, 1, 24, DIR_EAST
 	scrcmd_602 0
 	scrcmd_603
 	scrcmd_604 55
@@ -402,8 +402,8 @@ _0436:
 	scrcmd_603
 	scrcmd_602 1
 	scrcmd_604 48
-	move_person obj_D35R0103_wataru, 39, 0, 18, 0
-	move_person obj_D35R0103_tsure_poke_static_dragonite, 40, 0, 18, 0
+	move_person_facing obj_D35R0103_wataru, 39, 0, 18, DIR_NORTH
+	move_person_facing obj_D35R0103_tsure_poke_static_dragonite, 40, 0, 18, DIR_NORTH
 	releaseall
 	setvar VAR_UNK_40AC, 9
 	setvar VAR_UNK_40A9, 4
@@ -555,9 +555,9 @@ scr_seq_D35R0103_004:
 	scrcmd_221 VAR_TEMP_x4000, 0
 	compare VAR_TEMP_x4000, 1
 	goto_if_eq _07D0
-	setflag FLAG_UNK_0CB
-	goto_if_unset FLAG_UNK_0CC, _07D0
-	goto_if_unset FLAG_UNK_0CD, _07D0
+	setflag FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_1
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_2, _07D0
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_3, _07D0
 	goto _08A2
 
 _07D0:
@@ -578,9 +578,9 @@ scr_seq_D35R0103_005:
 	scrcmd_221 VAR_TEMP_x4000, 0
 	compare VAR_TEMP_x4000, 1
 	goto_if_eq _0834
-	setflag FLAG_UNK_0CC
-	goto_if_unset FLAG_UNK_0CB, _0834
-	goto_if_unset FLAG_UNK_0CD, _0834
+	setflag FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_2
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_1, _0834
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_3, _0834
 	goto _08A2
 
 _0834:
@@ -601,9 +601,9 @@ scr_seq_D35R0103_006:
 	scrcmd_221 VAR_TEMP_x4000, 0
 	compare VAR_TEMP_x4000, 1
 	goto_if_eq _0898
-	setflag FLAG_UNK_0CD
-	goto_if_unset FLAG_UNK_0CB, _0898
-	goto_if_unset FLAG_UNK_0CC, _0898
+	setflag FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_3
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_1, _0898
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_2, _0898
 	goto _08A2
 
 _0898:
@@ -665,22 +665,22 @@ _08F0:
 	setvar VAR_UNK_40AC, 10
 	setvar VAR_UNK_410F, 1
 	scrcmd_530 0, 1
-	setvar VAR_UNK_40B2, 1
-	setvar VAR_UNK_40B3, 1
-	setvar VAR_UNK_40B4, 1
-	setvar VAR_UNK_40B5, 1
-	setvar VAR_UNK_40B6, 1
-	setvar VAR_UNK_40B7, 1
-	setvar VAR_UNK_40B8, 1
-	setvar VAR_UNK_40B9, 1
-	setvar VAR_UNK_40BA, 1
-	setvar VAR_UNK_40BB, 1
-	setvar VAR_UNK_40BC, 1
-	setvar VAR_UNK_40BD, 1
-	setvar VAR_UNK_40BE, 1
-	setvar VAR_UNK_40BF, 1
-	setvar VAR_UNK_40C0, 1
-	setvar VAR_UNK_40C1, 1
+	setvar VAR_ROCKET_TRAP_KOFFING_1, 1
+	setvar VAR_ROCKET_TRAP_VOLTORB_1, 1
+	setvar VAR_ROCKET_TRAP_GEODUDE_1, 1
+	setvar VAR_ROCKET_TRAP_VOLTORB_2, 1
+	setvar VAR_ROCKET_TRAP_GEODUDE_2, 1
+	setvar VAR_ROCKET_TRAP_VOLTORB_3, 1
+	setvar VAR_ROCKET_TRAP_VOLTORB_4, 1
+	setvar VAR_ROCKET_TRAP_KOFFING_2, 1
+	setvar VAR_ROCKET_TRAP_KOFFING_3, 1
+	setvar VAR_ROCKET_TRAP_GEODUDE_3, 1
+	setvar VAR_ROCKET_TRAP_GEODUDE_4, 1
+	setvar VAR_ROCKET_TRAP_KOFFING_4, 1
+	setvar VAR_ROCKET_TRAP_VOLTORB_5, 1
+	setvar VAR_ROCKET_TRAP_VOLTORB_6, 1
+	setvar VAR_ROCKET_TRAP_KOFFING_5, 1
+	setvar VAR_ROCKET_TRAP_GEODUDE_5, 1
 	end
 
 
@@ -768,9 +768,9 @@ _0AAC:
 	step_end
 scr_seq_D35R0103_010:
 	releaseall
-	goto_if_unset FLAG_UNK_0CB, _0AE4
-	goto_if_unset FLAG_UNK_0CC, _0AE4
-	goto_if_unset FLAG_UNK_0CD, _0AE4
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_1, _0AE4
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_2, _0AE4
+	goto_if_unset FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_3, _0AE4
 	npc_msg msg_0113_D35R0103_00023
 	closemsg
 	releaseall

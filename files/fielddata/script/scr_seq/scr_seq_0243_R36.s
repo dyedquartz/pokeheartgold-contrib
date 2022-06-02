@@ -35,7 +35,7 @@ scr_seq_R36_010:
 	end
 
 _005C:
-	setflag FLAG_UNK_1C2
+	setflag FLAG_HIDE_ROUTE_36_SUDOWOODO
 	hide_person obj_R36_usokky
 	clearflag FLAG_ENGAGING_STATIC_POKEMON
 	end
@@ -150,7 +150,7 @@ _022F:
 	end
 
 _023F:
-	setflag FLAG_UNK_169
+	setflag FLAG_CAUGHT_SUDOWOODO
 	return
 	.byte 0x14, 0x00, 0xd9, 0x07, 0x35, 0x00, 0x16, 0x00, 0xb3, 0xff, 0xff
 	.byte 0xff
@@ -268,7 +268,7 @@ scr_seq_R36_001:
 	play_se SEQ_SE_DP_SELECT
 	lockall
 	faceplayer
-	get_lead_mon_index VAR_SPECIAL_x8002
+	get_party_lead_alive VAR_SPECIAL_x8002
 	mon_has_ribbon VAR_SPECIAL_RESULT, VAR_SPECIAL_x8002, RIBBON_CARELESS
 	compare VAR_SPECIAL_RESULT, 1
 	goto_if_eq _04E2
@@ -394,7 +394,7 @@ scr_seq_R36_009:
 	play_se SEQ_SE_DP_SELECT
 	lockall
 	faceplayer
-	goto_if_set FLAG_UNK_1C2, _05AE
+	goto_if_set FLAG_HIDE_ROUTE_36_SUDOWOODO, _05AE
 	npc_msg msg_0390_R36_00007
 	goto _05B1
 

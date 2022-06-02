@@ -100,14 +100,14 @@ _02245C06:
 	cmp r0, #0x50
 	bne _02245C5A
 _02245C26:
-	ldr r0, _02245D0C ; =0x0000088B
+	ldr r0, _02245D0C ; =SEQ_SE_DP_FW411
 	bl PlaySE
 	add r0, r4, #0
 	add r0, #0xcc
 	ldr r0, [r0]
 	cmp r0, #0x32
 	bne _02245C3C
-	ldr r0, _02245D10 ; =0x0000088C
+	ldr r0, _02245D10 ; =SEQ_SE_DP_F207
 	bl PlaySE
 _02245C3C:
 	add r0, r4, #0
@@ -120,9 +120,9 @@ _02245C3C:
 	add r1, r0, #0
 	sub r1, r1, #5
 	lsl r1, r1, #0x16
-	ldr r0, _02245D0C ; =0x0000088B
+	ldr r0, _02245D0C ; =SEQ_SE_DP_FW411
 	asr r1, r1, #0x10
-	bl sub_02006134
+	bl PlaySE_SetPitch
 _02245C5A:
 	add r0, r4, #0
 	add r0, #0xcc
@@ -209,8 +209,8 @@ _02245D06:
 	add sp, #0xc
 	pop {r3, r4, pc}
 	.balign 4, 0
-_02245D0C: .word 0x0000088B
-_02245D10: .word 0x0000088C
+_02245D0C: .word SEQ_SE_DP_FW411
+_02245D10: .word SEQ_SE_DP_F207
 _02245D14: .word 0x00007FFF
 	thumb_func_end ov02_02245BC8
 
@@ -866,7 +866,7 @@ _02246204:
 	ldr r3, [sp, #8]
 	add r0, #0x10
 	bl ov01_021FC00C
-	ldr r0, _022462CC ; =0x0000090F
+	ldr r0, _022462CC ; =SEQ_SE_GS_STOPPERKAIJO
 	bl PlaySE
 	ldrh r0, [r4, #0x12]
 	add r0, r0, #1
@@ -888,7 +888,7 @@ _0224623A:
 	ldr r0, _022462D4 ; =ov02_022462DC
 	add r1, r4, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	mov r2, #0
 	str r0, [r4, #0xc]
 	add r0, r5, #0
@@ -901,7 +901,7 @@ _0224623A:
 	b _022462C0
 _02246276:
 	ldr r0, [r4, #0xc]
-	bl sub_0200E390
+	bl DestroySysTask
 	ldrh r0, [r4, #0x12]
 	add r0, r0, #1
 	strh r0, [r4, #0x12]
@@ -939,7 +939,7 @@ _022462C0:
 	pop {r4, r5, pc}
 	nop
 _022462C8: .word ov02_02253254
-_022462CC: .word 0x0000090F
+_022462CC: .word SEQ_SE_GS_STOPPERKAIJO
 _022462D0: .word ov02_02253D80
 _022462D4: .word ov02_022462DC
 _022462D8: .word ov02_02253D84
@@ -1008,7 +1008,7 @@ ov02_02246330: ; 0x02246330
 	b _0224638E
 _02246348:
 	bl ov02_02246398
-	ldr r0, _02246394 ; =0x0000087D
+	ldr r0, _02246394 ; =SEQ_SE_GS_AJITO_SIREN
 	bl PlaySE
 	ldrb r0, [r4, #8]
 	add r0, r0, #1
@@ -1028,7 +1028,7 @@ _0224635A:
 	strb r0, [r4, #8]
 	b _0224638E
 _02246374:
-	ldr r0, _02246394 ; =0x0000087D
+	ldr r0, _02246394 ; =SEQ_SE_GS_AJITO_SIREN
 	bl IsSEPlaying
 	cmp r0, #0
 	bne _0224638E
@@ -1042,7 +1042,7 @@ _0224638E:
 	mov r0, #0
 	pop {r4, pc}
 	nop
-_02246394: .word 0x0000087D
+_02246394: .word SEQ_SE_GS_AJITO_SIREN
 	thumb_func_end ov02_02246330
 
 	thumb_func_start ov02_02246398
@@ -1245,7 +1245,7 @@ ov02_0224650C: ; 0x0224650C
 	str r6, [r4]
 	add r0, r6, #0
 	str r5, [r4, #4]
-	bl sub_02023114
+	bl GF_Camera_Create
 	str r0, [r4, #0x18]
 	add r0, r4, #0
 	pop {r4, r5, r6, pc}
@@ -1341,7 +1341,7 @@ _022465D8:
 	bl sub_02023128
 	ldr r1, [r5, #0x18]
 	add r0, sp, #0
-	bl sub_02023630
+	bl GF_Camera_GetTarget
 	add r4, sp, #0
 	add r3, r5, #0
 	add r3, #0x20
@@ -1361,7 +1361,7 @@ _022465D8:
 	add r0, r2, #0
 	bl sub_02023214
 	ldr r0, [r5, #0x18]
-	bl sub_0202313C
+	bl GF_Camera_RegisterToStaticPtr
 	add sp, #0xc
 	pop {r3, r4, r5, r6, pc}
 	.balign 4, 0
@@ -1376,7 +1376,7 @@ ov02_0224662C: ; 0x0224662C
 	ldr r0, [r0, #0x24]
 	bx r3
 	.balign 4, 0
-_02246638: .word sub_0202313C
+_02246638: .word GF_Camera_RegisterToStaticPtr
 	thumb_func_end ov02_0224662C
 
 	thumb_func_start ov02_0224663C
@@ -5723,39 +5723,39 @@ ov02_02248728: ; 0x02248728
 	add r0, r1, #0
 	add r1, r5, #0
 	add r1, #0xc
-	bl sub_02009F40
+	bl G2dRenderer_Init
 	str r0, [r5, #8]
 	add r0, r5, #0
 	mov r2, #2
 	add r0, #0xc
 	mov r1, #0
 	lsl r2, r2, #0x14
-	bl sub_02009FC8
+	bl G2dRenderer_SetSubSurfaceCoords
 	add r0, r6, #0
 	mov r1, #0
 	mov r2, #4
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #0x4d
 	lsl r1, r1, #2
 	str r0, [r5, r1]
 	add r0, r7, #0
 	mov r1, #1
 	mov r2, #4
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #0x4e
 	lsl r1, r1, #2
 	str r0, [r5, r1]
 	add r0, r4, #0
 	mov r1, #2
 	mov r2, #4
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #0x4f
 	lsl r1, r1, #2
 	str r0, [r5, r1]
 	ldr r0, [sp, #0x1c]
 	mov r1, #3
 	mov r2, #4
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #5
 	lsl r1, r1, #6
 	str r0, [r5, r1]
@@ -5965,19 +5965,19 @@ _02248920:
 	mov r0, #0x4d
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	mov r0, #0x4e
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	mov r0, #0x4f
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	mov r0, #5
 	lsl r0, r0, #6
 	ldr r0, [r5, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	mov r0, #0x51
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
@@ -6043,7 +6043,7 @@ _022489A2:
 	ldr r0, [r6, r0]
 	ldr r1, [sp, #0xc]
 	ldr r2, [sp, #0x10]
-	bl sub_0200A3C8
+	bl AddCharResObjFromOpenNarc
 	mov r1, #0x51
 	lsl r1, r1, #2
 	ldr r1, [r6, r1]
@@ -6167,7 +6167,7 @@ _02248A7A:
 	ldr r0, [r6, r0]
 	ldr r1, [sp, #0x10]
 	ldr r2, [sp, #0x14]
-	bl sub_0200A480
+	bl AddPlttResObjFromOpenNarc
 	mov r1, #0x52
 	lsl r1, r1, #2
 	ldr r1, [r6, r1]
@@ -6289,7 +6289,7 @@ _02248B52:
 	ldr r0, [r6, r0]
 	ldr r1, [sp, #0xc]
 	ldr r2, [sp, #0x10]
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	mov r1, #0x53
 	lsl r1, r1, #2
 	ldr r1, [r6, r1]
@@ -6350,7 +6350,7 @@ _02248BC2:
 	ldr r0, [r6, r0]
 	ldr r1, [sp, #0xc]
 	ldr r2, [sp, #0x10]
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	mov r1, #0x15
 	lsl r1, r1, #4
 	ldr r1, [r6, r1]
@@ -6414,7 +6414,7 @@ _02248C2A:
 	str r3, [sp, #0x28]
 	ldr r3, [sp, #0x80]
 	add r0, sp, #0x4c
-	bl sub_02009D48
+	bl CreateSpriteResourcesHeader
 	ldr r0, [r5, #8]
 	add r2, sp, #0x34
 	str r0, [sp, #0x2c]
@@ -6530,10 +6530,10 @@ _02248D2C:
 	bl ov02_02248C10
 	add r4, r0, #0
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	add r0, r4, #0
 	mov r1, #6
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	add r0, r4, #0
 	add sp, #0x1c
 	pop {r3, r4, pc}
@@ -6654,7 +6654,7 @@ ov02_02248E10: ; 0x02248E10
 	mov r1, #0
 	strb r1, [r0, #2]
 	ldr r0, [r0, #0x68]
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	mov r0, #0
 	pop {r3, pc}
 	thumb_func_end ov02_02248E10
@@ -6766,7 +6766,7 @@ ov02_02248E20: ; 0x02248E20
 	bl sub_02024ADC
 	ldr r0, [r4, #0x68]
 	mov r1, #1
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	ldr r0, [r4, #0x58]
 	ldr r1, [r4, #0x60]
 	bl ov02_0224B298
@@ -6807,7 +6807,7 @@ ov02_02248E20: ; 0x02248E20
 	bl sub_02024818
 	add r0, r4, #0
 	mov r1, #2
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	bl ov02_022493FC
 	add sp, #0x30
 	pop {r4, r5, r6, pc}
@@ -7108,10 +7108,10 @@ ov02_022491A8: ; 0x022491A8
 	add r4, r0, #0
 	ldr r0, [r4, #0x68]
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	ldr r0, [r4, #0x60]
 	mov r1, #1
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	mov r0, #0
 	str r0, [r4, #4]
 	ldrb r0, [r4, #1]
@@ -7196,13 +7196,13 @@ _022491E2:
 	bl sub_02024818
 	ldr r0, [r4, #0x68]
 	mov r1, #1
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	ldr r0, [r4, #0x60]
 	mov r1, #6
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	ldr r0, [r4, #0x60]
 	mov r1, #1
-	bl sub_0202484C
+	bl Set2dSpriteAnimActiveFlag
 	ldrb r0, [r4, #1]
 	add r0, r0, #1
 	strb r0, [r4, #1]
@@ -7340,7 +7340,7 @@ _0224934C:
 	bgt _02249390
 	add r0, r4, #0
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	ldrb r0, [r5, #1]
 	add r0, r0, #1
 	strb r0, [r5, #1]
@@ -7363,7 +7363,7 @@ ov02_0224939C: ; 0x0224939C
 	bne _022493BA
 	ldr r0, [r4, #0x60]
 	mov r1, #1
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	ldr r0, [r4, #0x5c]
 	mov r1, #0
 	bl ov02_02249444
@@ -7373,7 +7373,7 @@ _022493BA:
 	bne _022493C8
 	ldr r0, [r4, #0x60]
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 _022493C8:
 	ldr r0, [r4, #4]
 	cmp r0, #0xf
@@ -7489,7 +7489,7 @@ ov02_02249458: ; 0x02249458
 	ldr r0, _022494B8 ; =ov02_02249584
 	add r1, r4, #0
 	mov r2, #0x86
-	bl sub_0200E320
+	bl CreateSysTask
 	pop {r3, r4, r5, r6, r7, pc}
 _02249490:
 	cmp r5, #2
@@ -7502,13 +7502,13 @@ _02249490:
 	ldr r0, _022494BC ; =ov02_022499B8
 	add r1, r4, #0
 	mov r2, #0x86
-	bl sub_0200E320
+	bl CreateSysTask
 	pop {r3, r4, r5, r6, r7, pc}
 _022494AC:
 	ldr r0, _022494C0 ; =ov02_02249984
 	add r1, r4, #0
 	mov r2, #0x86
-	bl sub_0200E320
+	bl CreateSysTask
 	pop {r3, r4, r5, r6, r7, pc}
 	.balign 4, 0
 _022494B8: .word ov02_02249584
@@ -7566,7 +7566,7 @@ ov02_022494C4: ; 0x022494C4
 	ldr r0, _02249538 ; =ov02_022499B8
 	add r1, r4, #0
 	mov r2, #0x86
-	bl sub_0200E320
+	bl CreateSysTask
 	add sp, #0x18
 	pop {r3, r4, r5, r6, r7, pc}
 	nop
@@ -7589,7 +7589,7 @@ ov02_02249548: ; 0x02249548
 	bl sub_0201F988
 	bl ov02_0224957C
 	add r0, r4, #0
-	bl sub_0200E390
+	bl DestroySysTask
 	pop {r4, pc}
 	thumb_func_end ov02_02249548
 
@@ -8345,7 +8345,7 @@ _02249A72:
 	str r0, [r4, r1]
 	ldr r0, [r4, r1]
 	mov r1, #1
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	add r0, r4, #0
 	bl ov02_02249D40
 	mov r0, #1
@@ -8440,7 +8440,7 @@ _02249B48:
 	lsl r0, r0, #2
 	ldr r0, [r4, r0]
 	mov r1, #1
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	ldr r0, [r4]
 	add r0, r0, #1
 	str r0, [r4]
@@ -8502,7 +8502,7 @@ ov02_02249BA8: ; 0x02249BA8
 	mov r0, #0
 	pop {r4, pc}
 _02249BB8:
-	ldr r0, _02249BD4 ; =0x00000648
+	ldr r0, _02249BD4 ; =SEQ_SE_DP_FW019
 	bl PlaySE
 	mov r0, #2
 	lsl r0, r0, #0xa
@@ -8515,7 +8515,7 @@ _02249BB8:
 	mov r0, #1
 	pop {r4, pc}
 	nop
-_02249BD4: .word 0x00000648
+_02249BD4: .word SEQ_SE_DP_FW019
 	thumb_func_end ov02_02249BA8
 
 	thumb_func_start ov02_02249BD8
@@ -8723,7 +8723,7 @@ ov02_02249D40: ; 0x02249D40
 	ldr r0, [r4, r0]
 	cmp r0, #0
 	beq _02249D5A
-	bl sub_0200E390
+	bl DestroySysTask
 	mov r0, #0x22
 	mov r1, #0
 	lsl r0, r0, #4
@@ -8865,7 +8865,7 @@ _02249E48:
 	lsl r0, r0, #2
 	str r1, [r6, r0]
 	ldr r0, [sp]
-	bl sub_0200E390
+	bl DestroySysTask
 _02249E56:
 	pop {r3, r4, r5, r6, r7, pc}
 	thumb_func_end ov02_02249DD8
@@ -8878,7 +8878,7 @@ ov02_02249E58: ; 0x02249E58
 	lsl r0, r0, #2
 	ldr r0, [r4, r0]
 	mov r1, #0
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	mov r1, #0x21
 	lsl r1, r1, #4
 	ldr r1, [r4, r1]
@@ -8909,7 +8909,7 @@ ov02_02249E90: ; 0x02249E90
 	lsl r0, r0, #2
 	ldr r0, [r4, r0]
 	mov r1, #0
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	mov r1, #0x21
 	lsl r1, r1, #4
 	ldr r1, [r4, r1]
@@ -8921,7 +8921,7 @@ ov02_02249E90: ; 0x02249E90
 	lsl r0, r0, #2
 	str r1, [r4, r0]
 	add r0, r5, #0
-	bl sub_0200E390
+	bl DestroySysTask
 _02249EBE:
 	pop {r3, r4, r5, pc}
 	thumb_func_end ov02_02249E90
@@ -9162,39 +9162,39 @@ ov02_0224A080: ; 0x0224A080
 	mov r0, #0x20
 	add r1, #0x74
 	mov r2, #4
-	bl sub_02009F40
+	bl G2dRenderer_Init
 	str r0, [r5, #0x70]
 	add r0, r5, #0
 	mov r2, #2
 	add r0, #0x74
 	mov r1, #0
 	lsl r2, r2, #0x14
-	bl sub_02009FC8
+	bl G2dRenderer_SetSubSurfaceCoords
 	mov r0, #4
 	mov r1, #0
 	add r2, r0, #0
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #0x67
 	lsl r1, r1, #2
 	str r0, [r5, r1]
 	mov r0, #3
 	mov r1, #1
 	mov r2, #4
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #0x1a
 	lsl r1, r1, #4
 	str r0, [r5, r1]
 	mov r0, #4
 	mov r1, #2
 	add r2, r0, #0
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #0x69
 	lsl r1, r1, #2
 	str r0, [r5, r1]
 	mov r0, #2
 	mov r1, #3
 	mov r2, #4
-	bl sub_0200A090
+	bl Create2DGfxResObjMan
 	mov r1, #0x6a
 	lsl r1, r1, #2
 	str r0, [r5, r1]
@@ -9208,7 +9208,7 @@ ov02_0224A080: ; 0x0224A080
 	add r1, r6, #0
 	mov r2, #0xe
 	mov r3, #0
-	bl sub_0200A3C8
+	bl AddCharResObjFromOpenNarc
 	mov r1, #0x6b
 	lsl r1, r1, #2
 	str r0, [r5, r1]
@@ -9226,7 +9226,7 @@ ov02_0224A080: ; 0x0224A080
 	add r1, r6, #0
 	ldrh r2, [r2, r3]
 	mov r3, #0
-	bl sub_0200A3C8
+	bl AddCharResObjFromOpenNarc
 	mov r1, #0x1b
 	lsl r1, r1, #4
 	str r0, [r5, r1]
@@ -9248,7 +9248,7 @@ ov02_0224A080: ; 0x0224A080
 	add r1, r6, #0
 	mov r2, #6
 	add r3, r4, #0
-	bl sub_0200A480
+	bl AddPlttResObjFromOpenNarc
 	mov r1, #0x6f
 	lsl r1, r1, #2
 	str r0, [r5, r1]
@@ -9270,7 +9270,7 @@ ov02_0224A080: ; 0x0224A080
 	ldr r0, [r5, r1]
 	add r1, r6, #0
 	mov r3, #0
-	bl sub_0200A480
+	bl AddPlttResObjFromOpenNarc
 	lsl r1, r4, #2
 	add r2, r5, r1
 	mov r1, #0x6f
@@ -9297,7 +9297,7 @@ _0224A196:
 	add r1, r6, #0
 	mov r2, #0xf
 	mov r3, #0
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	mov r1, #0x72
 	lsl r1, r1, #2
 	str r0, [r5, r1]
@@ -9314,7 +9314,7 @@ _0224A196:
 	add r1, r6, #0
 	ldrh r2, [r2, r3]
 	mov r3, #0
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	mov r1, #0x73
 	lsl r1, r1, #2
 	str r0, [r5, r1]
@@ -9329,7 +9329,7 @@ _0224A196:
 	add r1, r6, #0
 	mov r2, #0xa
 	mov r3, #0
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	mov r1, #0x1d
 	lsl r1, r1, #4
 	str r0, [r5, r1]
@@ -9343,7 +9343,7 @@ _0224A196:
 	ldr r0, [r5, r1]
 	add r1, r6, #0
 	mov r2, #0x10
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	mov r1, #0x76
 	lsl r1, r1, #2
 	str r0, [r5, r1]
@@ -9361,7 +9361,7 @@ _0224A196:
 	add r1, r6, #0
 	ldrh r2, [r2, r3]
 	mov r3, #0
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	mov r1, #0x77
 	lsl r1, r1, #2
 	str r0, [r5, r1]
@@ -9452,19 +9452,19 @@ _0224A2EC:
 	mov r0, #0x67
 	lsl r0, r0, #2
 	ldr r0, [r6, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	mov r0, #0x1a
 	lsl r0, r0, #4
 	ldr r0, [r6, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	mov r0, #0x69
 	lsl r0, r0, #2
 	ldr r0, [r6, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	mov r0, #0x6a
 	lsl r0, r0, #2
 	ldr r0, [r6, r0]
-	bl sub_0200A0D0
+	bl Destroy2DGfxResObjMan
 	ldr r0, [r6, #0x70]
 	bl sub_02024544
 	ldr r0, [r6, #0x70]
@@ -9520,7 +9520,7 @@ ov02_0224A33C: ; 0x0224A33C
 	str r0, [sp, #0x28]
 	ldr r3, [sp, #0x80]
 	add r0, sp, #0x4c
-	bl sub_02009D48
+	bl CreateSpriteResourcesHeader
 	b _0224A3BE
 _0224A384:
 	str r0, [sp]
@@ -9550,7 +9550,7 @@ _0224A384:
 	str r3, [sp, #0x28]
 	ldr r3, [sp, #0x80]
 	add r0, sp, #0x4c
-	bl sub_02009D48
+	bl CreateSpriteResourcesHeader
 _0224A3BE:
 	ldr r0, [r5, #0x70]
 	add r2, sp, #0x34
@@ -9593,7 +9593,7 @@ ov02_0224A3F0: ; 0x0224A3F0
 	bl ov02_0224A33C
 	add r1, r4, #0
 	add r5, r0, #0
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	add r0, r5, #0
 	add sp, #0x10
 	pop {r3, r4, r5, pc}
@@ -9621,10 +9621,10 @@ _0224A426:
 	bl ov02_0224A33C
 	add r4, r0, #0
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	add r0, r4, #0
 	mov r1, #6
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	add r0, r4, #0
 	add sp, #0x10
 	pop {r4, pc}
@@ -9635,7 +9635,7 @@ ov02_0224A450: ; 0x0224A450
 	push {r4, lr}
 	mov r1, #1
 	add r4, r0, #0
-	bl sub_0202484C
+	bl Set2dSpriteAnimActiveFlag
 	mov r1, #1
 	add r0, r4, #0
 	lsl r1, r1, #0xc
@@ -9719,7 +9719,7 @@ _0224A4E4:
 	ldr r0, [r4, r0]
 	add r1, r6, #0
 	mov r2, #0xb
-	bl sub_0200A3C8
+	bl AddCharResObjFromOpenNarc
 	lsl r1, r5, #2
 	add r2, r4, r1
 	mov r1, #0x6b
@@ -9755,7 +9755,7 @@ _0224A528:
 	ldr r0, [r4, r0]
 	add r1, r6, #0
 	mov r2, #0xc
-	bl sub_0200A540
+	bl AddCellOrAnimResObjFromOpenNarc
 	lsl r1, r5, #2
 	add r2, r4, r1
 	mov r1, #0x72
@@ -9991,7 +9991,7 @@ _0224A6E2:
 	mov r0, #0x89
 	lsl r0, r0, #2
 	ldr r0, [r4, r0]
-	bl sub_0200E390
+	bl DestroySysTask
 	mov r2, #1
 	lsl r2, r2, #0x1a
 	ldr r1, [r2]
@@ -10093,14 +10093,14 @@ _0224A7A4: .word 0x0400004A
 
 	thumb_func_start ov02_0224A7A8
 ov02_0224A7A8: ; 0x0224A7A8
-	ldr r3, _0224A7B4 ; =sub_02070124
+	ldr r3, _0224A7B4 ; =GetPokemonSpriteCharAndPlttNarcIds
 	add r2, r0, #0
 	add r0, r1, #0
 	ldr r1, [r2, #0x5c]
 	mov r2, #2
 	bx r3
 	.balign 4, 0
-_0224A7B4: .word sub_02070124
+_0224A7B4: .word GetPokemonSpriteCharAndPlttNarcIds
 	thumb_func_end ov02_0224A7A8
 
 	thumb_func_start ov02_0224A7B8
@@ -10167,7 +10167,7 @@ ov02_0224A810: ; 0x0224A810
 	ldr r0, [r0, r2]
 	mov r2, #9
 	mov r3, #0
-	bl sub_0200A3C8
+	bl AddCharResObjFromOpenNarc
 	add sp, #0xc
 	pop {pc}
 	.balign 4, 0
@@ -10181,7 +10181,7 @@ ov02_0224A834: ; 0x0224A834
 	lsl r1, r1, #2
 	ldr r0, [r0, r1]
 	mov r1, #3
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	bl sub_0200AF00
 	mov r1, #1
 	bl NNS_G2dGetImageLocation
@@ -10214,7 +10214,7 @@ ov02_0224A868: ; 0x0224A868
 	ldr r0, [r0, r2]
 	mov r2, #6
 	mov r3, #0
-	bl sub_0200A480
+	bl AddPlttResObjFromOpenNarc
 	add sp, #0x10
 	pop {r3, pc}
 	thumb_func_end ov02_0224A868
@@ -10228,14 +10228,14 @@ ov02_0224A88C: ; 0x0224A88C
 	add r4, r1, #0
 	ldr r0, [r5, r0]
 	mov r1, #3
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	bl sub_0200AF00
 	add r6, r0, #0
 	mov r0, #0x1a
 	lsl r0, r0, #4
 	ldr r0, [r5, r0]
 	mov r1, #3
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	add r1, r6, #0
 	bl sub_0200B0F8
 	mov r1, #1
@@ -10260,14 +10260,14 @@ ov02_0224A8D4: ; 0x0224A8D4
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
 	mov r1, #3
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	add r4, r0, #0
 	bl sub_0200AEB0
 	mov r0, #0x67
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
 	add r1, r4, #0
-	bl sub_0200A75C
+	bl DestroySingle2DGfxResObj
 	mov r1, #0x6b
 	mov r0, #0
 	add r3, r5, #0
@@ -10297,14 +10297,14 @@ _0224A922:
 	lsl r0, r0, #4
 	ldr r0, [r5, r0]
 	mov r1, #3
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	add r4, r0, #0
 	bl sub_0200B0A8
 	mov r0, #0x1a
 	lsl r0, r0, #4
 	ldr r0, [r5, r0]
 	add r1, r4, #0
-	bl sub_0200A75C
+	bl DestroySingle2DGfxResObj
 	mov r1, #0x6f
 	mov r0, #0
 	add r3, r5, #0
@@ -10334,14 +10334,14 @@ _0224A96C:
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
 	mov r1, #3
-	bl sub_0200A7BC
+	bl Get2DGfxResObjById
 	add r4, r0, #0
 	bl sub_0200A740
 	mov r0, #0x69
 	lsl r0, r0, #2
 	ldr r0, [r5, r0]
 	add r1, r4, #0
-	bl sub_0200A75C
+	bl DestroySingle2DGfxResObj
 	mov r1, #0x72
 	mov r0, #0
 	add r3, r5, #0
@@ -10506,7 +10506,7 @@ ov02_0224AA80: ; 0x0224AA80
 	bl ov02_0224A3F0
 	mov r1, #0
 	str r0, [r4, #8]
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	mov r0, #1
 	add sp, #0xc
 	pop {r4, r5, pc}
@@ -10572,7 +10572,7 @@ ov02_0224AAD4: ; 0x0224AAD4
 	mov r1, #1
 _0224AB38:
 	ldr r0, [r4, #8]
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	add sp, #0xc
 	pop {r3, r4, r5, r6, pc}
 _0224AB42:
@@ -10580,7 +10580,7 @@ _0224AB42:
 	bne _0224AB4E
 	ldr r0, [r4, #8]
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 _0224AB4E:
 	add sp, #0xc
 	pop {r3, r4, r5, r6, pc}
@@ -10724,7 +10724,7 @@ ov02_0224AC28: ; 0x0224AC28
 	mov r1, #0
 	strb r1, [r0, #2]
 	ldr r0, [r0, #0x58]
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	mov r0, #0
 	pop {r3, pc}
 	thumb_func_end ov02_0224AC28
@@ -10802,7 +10802,7 @@ ov02_0224AC38: ; 0x0224AC38
 	bl sub_02024818
 	ldr r0, [r4, #0x58]
 	mov r1, #1
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	add sp, #0x18
 	pop {r4, r5, r6, pc}
 	.balign 4, 0
@@ -10929,7 +10929,7 @@ _0224AD90:
 	bge _0224ADDA
 	add r0, r4, #0
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	mov r0, #2
 	strb r0, [r5, #2]
 	ldrb r0, [r5, #1]
@@ -11070,7 +11070,7 @@ ov02_0224ADF0: ; 0x0224ADF0
 	bl sub_02024818
 	ldr r0, [r4, #0x58]
 	add r1, r7, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	mov r1, #0x1e
 	lsl r1, r1, #4
 	ldr r0, [r5, r1]
@@ -11326,10 +11326,10 @@ ov02_0224B0E0: ; 0x0224B0E0
 	ldr r5, [r1, r0]
 	mov r1, #3
 	add r0, r5, #0
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	add r0, r5, #0
 	mov r1, #1
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	ldr r0, [r4, #0x5c]
 	mov r1, #1
 	bl ov02_0224B6B0
@@ -11601,7 +11601,7 @@ ov02_0224B2CC: ; 0x0224B2CC
 	bl sub_02068DA8
 	ldr r0, [r4, #0x20]
 	mov r1, #5
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	add sp, #0xc
 	pop {r3, r4, r5, r6, pc}
 	.balign 4, 0
@@ -11631,7 +11631,7 @@ ov02_0224B314: ; 0x0224B314
 	bl sub_02068DA8
 	ldr r0, [r4, #0x20]
 	mov r1, #4
-	bl sub_020248F0
+	bl Set2dSpriteAnimSeqNo
 	add sp, #0xc
 	pop {r4, r5, pc}
 	.balign 4, 0
@@ -11764,7 +11764,7 @@ ov02_0224B418: ; 0x0224B418
 	ldr r0, _0224B438 ; =ov02_0224B45C
 	mov r2, #0x86
 	str r5, [r1, #0x14]
-	bl sub_0200E320
+	bl CreateSysTask
 	pop {r3, r4, r5, pc}
 	.balign 4, 0
 _0224B438: .word ov02_0224B45C
@@ -11786,7 +11786,7 @@ ov02_0224B448: ; 0x0224B448
 	bl sub_0201F988
 	bl FreeToHeap
 	add r0, r4, #0
-	bl sub_0200E390
+	bl DestroySysTask
 	pop {r4, pc}
 	thumb_func_end ov02_0224B448
 
@@ -11994,7 +11994,7 @@ ov02_0224B5F0: ; 0x0224B5F0
 	str r0, [r4, r1]
 	ldr r0, [r4, r1]
 	mov r1, #1
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	mov r3, #0x17
 	lsl r3, r3, #4
 	ldr r1, [r4, r3]
@@ -12143,17 +12143,17 @@ ov02_0224B6E4: ; 0x0224B6E4
 	bgt _0224B716
 	ldr r0, [r4]
 	mov r1, #1
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	pop {r3, r4, r5, pc}
 _0224B716:
 	ldr r0, [r4]
 	mov r1, #0
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	pop {r3, r4, r5, pc}
 _0224B720:
 	ldr r0, [r4]
 	mov r1, #1
-	bl sub_02024830
+	bl Set2dSpriteVisibleFlag
 	pop {r3, r4, r5, pc}
 	.balign 4, 0
 	thumb_func_end ov02_0224B6E4
@@ -13161,7 +13161,7 @@ _0224BEE8:
 	ldr r0, [r6, #0x58]
 	mov r1, #1
 	bl ov01_021E8E70
-	ldr r0, _0224BF50 ; =0x00000611
+	ldr r0, _0224BF50 ; =SEQ_SE_DP_ELEBETA2
 	bl PlaySE
 	ldrb r0, [r4, #2]
 	add r0, r0, #1
@@ -13173,10 +13173,10 @@ _0224BF00:
 	bl ov01_021E8F10
 	cmp r0, #0
 	beq _0224BF48
-	ldr r0, _0224BF50 ; =0x00000611
+	ldr r0, _0224BF50 ; =SEQ_SE_DP_ELEBETA2
 	mov r1, #0
 	bl StopSE
-	ldr r0, _0224BF54 ; =0x000005F1
+	ldr r0, _0224BF54 ; =SEQ_SE_DP_PINPON
 	bl PlaySE
 	ldr r0, [r6, #0x54]
 	ldr r1, [r6, #0x58]
@@ -13187,7 +13187,7 @@ _0224BF00:
 	strb r0, [r4, #2]
 	b _0224BF48
 _0224BF2C:
-	ldr r0, _0224BF54 ; =0x000005F1
+	ldr r0, _0224BF54 ; =SEQ_SE_DP_PINPON
 	bl IsSEPlaying
 	cmp r0, #0
 	bne _0224BF48
@@ -13205,8 +13205,8 @@ _0224BF48:
 	add sp, #0x1c
 	pop {r4, r5, r6, r7, pc}
 	nop
-_0224BF50: .word 0x00000611
-_0224BF54: .word 0x000005F1
+_0224BF50: .word SEQ_SE_DP_ELEBETA2
+_0224BF54: .word SEQ_SE_DP_PINPON
 	thumb_func_end ov02_0224BE24
 
 	thumb_func_start ov02_0224BF58
@@ -13380,14 +13380,14 @@ _0224C092:
 	ldr r0, [r4]
 	add r0, r0, #1
 	str r0, [r4]
-	ldr r0, _0224C0AC ; =0x00000602
+	ldr r0, _0224C0AC ; =SEQ_SE_DP_KAIDAN2
 	bl PlaySE
 	mov r0, #0
 	pop {r3, r4, r5, pc}
 	nop
 _0224C0A4: .word 0xFFF6A000
 _0224C0A8: .word ov02_02253820
-_0224C0AC: .word 0x00000602
+_0224C0AC: .word SEQ_SE_DP_KAIDAN2
 	thumb_func_end ov02_0224C05C
 
 	thumb_func_start ov02_0224C0B0
@@ -13405,7 +13405,7 @@ ov02_0224C0B0: ; 0x0224C0B0
 	pop {r4, r5, pc}
 _0224C0C8:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C144 ; =ov02_02253794
 	bl EventObjectMovementMan_Create
@@ -13414,7 +13414,7 @@ _0224C0C8:
 	cmp r0, #0
 	beq _0224C0F0
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	add r5, #0xe4
 	ldr r0, [r5]
 	ldr r1, _0224C144 ; =ov02_02253794
@@ -13479,7 +13479,7 @@ ov02_0224C14C: ; 0x0224C14C
 	cmp r0, #1
 	bne _0224C184
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C1B4 ; =ov02_02253794
 	bl EventObjectMovementMan_Create
@@ -13488,7 +13488,7 @@ ov02_0224C14C: ; 0x0224C14C
 	cmp r0, #0
 	beq _0224C184
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	add r5, #0xe4
 	ldr r0, [r5]
 	ldr r1, _0224C1B4 ; =ov02_02253794
@@ -13502,12 +13502,12 @@ _0224C184:
 	pop {r3, r4, r5, pc}
 _0224C190:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #8]
 	cmp r0, #0
 	beq _0224C1A2
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 _0224C1A2:
 	ldr r0, [r4, #0x1c]
 	bl ov01_021FCD78
@@ -13653,7 +13653,7 @@ ov02_0224C2A8: ; 0x0224C2A8
 	cmp r0, #1
 	bne _0224C2C6
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C2E8 ; =ov02_02253794
 	bl EventObjectMovementMan_Create
@@ -13691,7 +13691,7 @@ ov02_0224C2EC: ; 0x0224C2EC
 	pop {r4, pc}
 _0224C2FE:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #4]
 	add r0, r0, #1
 	str r0, [r4, #4]
@@ -13738,7 +13738,7 @@ _0224C358:
 	ldr r0, [r4, #0x1c]
 	bl ov01_021FCD78
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	mov r0, #2
 	pop {r4, pc}
 	thumb_func_end ov02_0224C338
@@ -14191,14 +14191,14 @@ ov02_0224C698: ; 0x0224C698
 	ldr r0, [r4]
 	add r0, r0, #1
 	str r0, [r4]
-	ldr r0, _0224C6D8 ; =0x0000064D
+	ldr r0, _0224C6D8 ; =SEQ_SE_DP_TELE
 	bl PlaySE
 	mov r0, #0
 	pop {r3, r4, r5, pc}
 	nop
 _0224C6D0: .word 0xFFF6A000
 _0224C6D4: .word ov02_02253770
-_0224C6D8: .word 0x0000064D
+_0224C6D8: .word SEQ_SE_DP_TELE
 	thumb_func_end ov02_0224C698
 
 	thumb_func_start ov02_0224C6DC
@@ -14214,7 +14214,7 @@ ov02_0224C6DC: ; 0x0224C6DC
 	pop {r3, r4, r5, pc}
 _0224C6F0:
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C718 ; =ov02_02253820
 	bl EventObjectMovementMan_Create
@@ -14252,14 +14252,14 @@ ov02_0224C71C: ; 0x0224C71C
 	ldr r0, [r4]
 	add r0, r0, #1
 	str r0, [r4]
-	ldr r0, _0224C758 ; =0x0000064D
+	ldr r0, _0224C758 ; =SEQ_SE_DP_TELE
 	bl PlaySE
 	mov r0, #0
 	pop {r4, pc}
 	nop
 _0224C750: .word 0xFFF6A000
 _0224C754: .word ov02_02253820
-_0224C758: .word 0x0000064D
+_0224C758: .word SEQ_SE_DP_TELE
 	thumb_func_end ov02_0224C71C
 
 	thumb_func_start ov02_0224C75C
@@ -14277,7 +14277,7 @@ ov02_0224C75C: ; 0x0224C75C
 	pop {r4, r5, pc}
 _0224C774:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C7D0 ; =ov02_02253794
 	bl EventObjectMovementMan_Create
@@ -14286,7 +14286,7 @@ _0224C774:
 	cmp r0, #0
 	beq _0224C79C
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	add r5, #0xe4
 	ldr r0, [r5]
 	ldr r1, _0224C7D0 ; =ov02_02253794
@@ -14333,7 +14333,7 @@ ov02_0224C7D4: ; 0x0224C7D4
 	cmp r0, #1
 	bne _0224C80C
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C83C ; =ov02_02253794
 	bl EventObjectMovementMan_Create
@@ -14342,7 +14342,7 @@ ov02_0224C7D4: ; 0x0224C7D4
 	cmp r0, #0
 	beq _0224C80C
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	add r5, #0xe4
 	ldr r0, [r5]
 	ldr r1, _0224C83C ; =ov02_02253794
@@ -14356,12 +14356,12 @@ _0224C80C:
 	pop {r3, r4, r5, pc}
 _0224C818:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #8]
 	cmp r0, #0
 	beq _0224C82A
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 _0224C82A:
 	ldr r0, [r4, #0x1c]
 	bl ov01_021FCD78
@@ -14431,14 +14431,14 @@ _0224C8B2:
 	ldr r0, [r4]
 	add r0, r0, #1
 	str r0, [r4]
-	ldr r0, _0224C8CC ; =0x00000602
+	ldr r0, _0224C8CC ; =SEQ_SE_DP_KAIDAN2
 	bl PlaySE
 	mov r0, #0
 	pop {r3, r4, r5, pc}
 	nop
 _0224C8C4: .word 0xFFF6A000
 _0224C8C8: .word ov02_022537DC
-_0224C8CC: .word 0x00000602
+_0224C8CC: .word SEQ_SE_DP_KAIDAN2
 	thumb_func_end ov02_0224C87C
 
 	thumb_func_start ov02_0224C8D0
@@ -14454,7 +14454,7 @@ ov02_0224C8D0: ; 0x0224C8D0
 	pop {r3, r4, r5, pc}
 _0224C8E4:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C938 ; =ov02_022537B8
 	bl EventObjectMovementMan_Create
@@ -14463,7 +14463,7 @@ _0224C8E4:
 	cmp r0, #0
 	beq _0224C90E
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	add r0, r5, #0
 	add r0, #0xe4
 	ldr r0, [r0]
@@ -14510,7 +14510,7 @@ ov02_0224C93C: ; 0x0224C93C
 	pop {r4, r5, pc}
 _0224C954:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224C9B0 ; =ov02_02253794
 	bl EventObjectMovementMan_Create
@@ -14519,7 +14519,7 @@ _0224C954:
 	cmp r0, #0
 	beq _0224C97C
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	add r5, #0xe4
 	ldr r0, [r5]
 	ldr r1, _0224C9B0 ; =ov02_02253794
@@ -14567,7 +14567,7 @@ ov02_0224C9B8: ; 0x0224C9B8
 	cmp r0, #1
 	bne _0224C9F2
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r4, #0x20]
 	ldr r1, _0224CA34 ; =ov02_02253794
 	bl EventObjectMovementMan_Create
@@ -14576,7 +14576,7 @@ ov02_0224C9B8: ; 0x0224C9B8
 	cmp r0, #0
 	beq _0224C9F2
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	add r0, r5, #0
 	add r0, #0xe4
 	ldr r0, [r0]
@@ -14591,7 +14591,7 @@ _0224C9F2:
 	pop {r3, r4, r5, pc}
 _0224C9FE:
 	ldr r0, [r4, #0x10]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldr r0, [r5, #0x40]
 	bl PlayerAvatar_GetState
 	cmp r0, #2
@@ -14605,7 +14605,7 @@ _0224CA18:
 	cmp r0, #0
 	beq _0224CA24
 	ldr r0, [r4, #0x14]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 _0224CA24:
 	ldr r0, [r4, #0x1c]
 	bl ov01_021FCD78
@@ -15681,14 +15681,14 @@ ov02_0224D1E4: ; 0x0224D1E4
 	ldr r0, [r5, #0x40]
 	add r1, r4, #0
 	bl ov02_0224D044
-	ldr r0, _0224D228 ; =0x0000064A
+	ldr r0, _0224D228 ; =SEQ_SE_DP_FW015
 	bl PlaySE
 	mov r0, #0
 	add r4, #0xec
 	str r0, [r4]
 	pop {r3, r4, r5, pc}
 	.balign 4, 0
-_0224D228: .word 0x0000064A
+_0224D228: .word SEQ_SE_DP_FW015
 	thumb_func_end ov02_0224D1E4
 
 	thumb_func_start ov02_0224D22C
@@ -15717,14 +15717,14 @@ ov02_0224D22C: ; 0x0224D22C
 	mov r1, #0xfd
 	add r2, r4, #0
 	bl ov02_0224CFD8
-	ldr r0, _0224D274 ; =0x0000064A
+	ldr r0, _0224D274 ; =SEQ_SE_DP_FW015
 	bl PlaySE
 	mov r0, #0
 	add r4, #0xec
 	str r0, [r4]
 	pop {r3, r4, r5, pc}
 	nop
-_0224D274: .word 0x0000064A
+_0224D274: .word SEQ_SE_DP_FW015
 	thumb_func_end ov02_0224D22C
 
 	thumb_func_start ov02_0224D278
@@ -15850,14 +15850,14 @@ ov02_0224D310: ; 0x0224D310
 	ldr r0, [r5, #0x40]
 	add r1, r4, #0
 	bl ov02_0224D044
-	ldr r0, _0224D354 ; =0x00000649
+	ldr r0, _0224D354 ; =SEQ_SE_DP_FW088
 	bl PlaySE
 	mov r0, #0
 	add r4, #0xec
 	str r0, [r4]
 	pop {r3, r4, r5, pc}
 	.balign 4, 0
-_0224D354: .word 0x00000649
+_0224D354: .word SEQ_SE_DP_FW088
 	thumb_func_end ov02_0224D310
 
 	thumb_func_start ov02_0224D358
@@ -15886,14 +15886,14 @@ ov02_0224D358: ; 0x0224D358
 	mov r1, #0xfd
 	add r2, r4, #0
 	bl ov02_0224CFD8
-	ldr r0, _0224D3A0 ; =0x00000649
+	ldr r0, _0224D3A0 ; =SEQ_SE_DP_FW088
 	bl PlaySE
 	mov r0, #0
 	add r4, #0xec
 	str r0, [r4]
 	pop {r3, r4, r5, pc}
 	nop
-_0224D3A0: .word 0x00000649
+_0224D3A0: .word SEQ_SE_DP_FW088
 	thumb_func_end ov02_0224D358
 
 	thumb_func_start ov02_0224D3A4
@@ -16109,7 +16109,7 @@ _0224D50A:
 	add r0, #0xdc
 	mov r1, #0
 	bl ov01_021FC004
-	ldr r0, _0224D57C ; =0x0000064C
+	ldr r0, _0224D57C ; =SEQ_SE_DP_FW463
 	bl PlaySE
 	add r0, r7, #0
 	ldrh r1, [r4, r0]
@@ -16155,7 +16155,7 @@ _0224D570:
 	.balign 4, 0
 _0224D574: .word 0x000001CA
 _0224D578: .word ov02_022538EC
-_0224D57C: .word 0x0000064C
+_0224D57C: .word SEQ_SE_DP_FW463
 	thumb_func_end ov02_0224D488
 
 	thumb_func_start ov02_0224D580
@@ -16249,7 +16249,7 @@ ov02_0224D5B4: ; 0x0224D5B4
 	add r0, r4, #0
 	mov r2, #1
 	bl ov01_021FC024
-	ldr r0, _0224D644 ; =0x0000064C
+	ldr r0, _0224D644 ; =SEQ_SE_DP_FW463
 	bl PlaySE
 	mov r0, #0
 	add r4, #0xec
@@ -16258,7 +16258,7 @@ ov02_0224D5B4: ; 0x0224D5B4
 	pop {r4, r5, r6, pc}
 	nop
 _0224D640: .word ov02_022538EC
-_0224D644: .word 0x0000064C
+_0224D644: .word SEQ_SE_DP_FW463
 	thumb_func_end ov02_0224D5B4
 
 	thumb_func_start ov02_0224D648
@@ -16358,12 +16358,12 @@ _0224D6D8:
 	add r0, r7, #0
 	mov r1, #1
 	bl ov01_021FC004
-	ldr r0, _0224D6FC ; =0x00000626
+	ldr r0, _0224D6FC ; =SEQ_SE_DP_UG_023
 	bl PlaySE
 	add sp, #0xc
 	pop {r4, r5, r6, r7, pc}
 	nop
-_0224D6FC: .word 0x00000626
+_0224D6FC: .word SEQ_SE_DP_UG_023
 	thumb_func_end ov02_0224D698
 
 	thumb_func_start ov02_0224D700
@@ -16781,7 +16781,7 @@ ov02_0224D9C0: ; 0x0224D9C0
 	bl ov02_0224D044
 	ldr r1, [r5, #0x24]
 	add r0, sp, #0x10
-	bl sub_02023630
+	bl GF_Camera_GetTarget
 	add r3, sp, #0x10
 	add r2, r4, #0
 	ldmia r3!, {r0, r1}
@@ -16855,7 +16855,7 @@ _0224DA7C:
 	stmia r2!, {r0, r1}
 	ldr r0, [r3]
 	str r0, [r2]
-	ldr r0, _0224DA9C ; =0x000008FE
+	ldr r0, _0224DA9C ; =SEQ_SE_GS_ZUTUKI
 	bl PlaySE
 	ldr r0, _0224DAA0 ; =0x00000113
 	mov r1, #0
@@ -16863,7 +16863,7 @@ _0224DA7C:
 	add sp, #0x28
 	pop {r3, r4, r5, pc}
 	.balign 4, 0
-_0224DA9C: .word 0x000008FE
+_0224DA9C: .word SEQ_SE_GS_ZUTUKI
 _0224DAA0: .word 0x00000113
 	thumb_func_end ov02_0224D9C0
 
@@ -16897,7 +16897,7 @@ ov02_0224DAA4: ; 0x0224DAA4
 	bl ov02_0224CFD8
 	ldr r1, [r5, #0x24]
 	add r0, sp, #0x10
-	bl sub_02023630
+	bl GF_Camera_GetTarget
 	add r3, sp, #0x10
 	add r2, r4, #0
 	ldmia r3!, {r0, r1}
@@ -16971,7 +16971,7 @@ _0224DB62:
 	stmia r2!, {r0, r1}
 	ldr r0, [r3]
 	str r0, [r2]
-	ldr r0, _0224DB84 ; =0x000008FE
+	ldr r0, _0224DB84 ; =SEQ_SE_GS_ZUTUKI
 	bl PlaySE
 	ldr r0, _0224DB88 ; =0x00000113
 	mov r1, #0
@@ -16979,7 +16979,7 @@ _0224DB62:
 	add sp, #0x28
 	pop {r3, r4, r5, pc}
 	nop
-_0224DB84: .word 0x000008FE
+_0224DB84: .word SEQ_SE_GS_ZUTUKI
 _0224DB88: .word 0x00000113
 	thumb_func_end ov02_0224DAA4
 
@@ -17038,7 +17038,7 @@ _0224DBB0:
 	add r0, #0xe5
 	ldr r1, [r5, #0x24]
 	add r0, r4, r0
-	bl sub_02023514
+	bl GF_Camera_ShiftBy
 	b _0224DC1C
 _0224DBF4:
 	add r0, r4, #0
@@ -17380,11 +17380,11 @@ _0224DE46:
 	add r0, r7, #0
 	mov r1, #1
 	bl ov01_021FC004
-	ldr r0, _0224DE68 ; =0x00000626
+	ldr r0, _0224DE68 ; =SEQ_SE_DP_UG_023
 	bl PlaySE
 	pop {r3, r4, r5, r6, r7, pc}
 	nop
-_0224DE68: .word 0x00000626
+_0224DE68: .word SEQ_SE_DP_UG_023
 	thumb_func_end ov02_0224DE10
 
 	thumb_func_start ov02_0224DE6C
@@ -17658,7 +17658,7 @@ _0224E04A:
 	add r0, r4, #0
 	bl FreeToHeap
 	add r0, r5, #0
-	bl sub_0200E390
+	bl DestroySysTask
 _0224E068:
 	pop {r3, r4, r5, pc}
 	nop
@@ -17696,7 +17696,7 @@ _0224E08C:
 	mov r2, #0
 	add r1, r6, #0
 	strh r2, [r5]
-	bl sub_0200E320
+	bl CreateSysTask
 	pop {r3, r4, r5, r6, r7, pc}
 	nop
 _0224E0B4: .word ov02_02253A1C
@@ -22959,7 +22959,7 @@ _02250874:
 	cmp r0, #1
 	bne _022508AA
 	ldr r0, [r5, #4]
-	bl sub_0206226C
+	bl EventObjectMovementMan_Delete
 	ldrh r0, [r5, #2]
 	add r0, r0, #1
 	strh r0, [r5, #2]
@@ -23197,14 +23197,14 @@ ov02_02250A60: ; 0x02250A60
 	ldr r1, [r5, #0x24]
 	ldr r4, [r0, #0x24]
 	mov r0, #4
-	bl sub_02019014
+	bl CreateCameraTranslationWrapper
 	str r0, [r4, #8]
 	ldr r0, _02250AC4 ; =gGameVersion
 	ldrb r0, [r0]
 	str r0, [r4, #0x24]
 	ldr r1, [r5, #0x24]
 	add r0, sp, #0xc
-	bl sub_02023630
+	bl GF_Camera_GetTarget
 	add r3, sp, #0xc
 	add r2, r4, #0
 	ldmia r3!, {r0, r1}
@@ -23240,7 +23240,7 @@ ov02_02250AC8: ; 0x02250AC8
 	ldr r0, [r4, #4]
 	ldr r0, [r0, #0x24]
 	ldr r0, [r0, #8]
-	bl sub_02019030
+	bl DeleteCameraTranslationWrapper
 	ldr r0, [r4, #4]
 	ldr r0, [r0, #0x24]
 	bl FreeToHeap
@@ -24249,7 +24249,7 @@ _022512CA:
 	ldr r0, [r0]
 	cmp r0, #2
 	bne _022512E8
-	ldr r0, _0225131C ; =0x0000090D
+	ldr r0, _0225131C ; =SEQ_SE_GS_RUGIA_MENOHIKARI
 	bl PlaySE
 _022512E8:
 	add r0, r4, #0
@@ -24277,7 +24277,7 @@ _02251316:
 	mov r0, #0
 	pop {r3, r4, r5, pc}
 	nop
-_0225131C: .word 0x0000090D
+_0225131C: .word SEQ_SE_GS_RUGIA_MENOHIKARI
 	thumb_func_end ov02_022512AC
 
 	thumb_func_start ov02_02251320
@@ -24439,41 +24439,41 @@ _02251440:
 	ldr r0, [r4, r0]
 	ldr r1, [r5, #0x24]
 	ldr r0, [r0, r6]
-	bl sub_020235D4
+	bl GF_Camera_SetDistance
 	mov r0, #0x4b
 	lsl r0, r0, #4
 	ldr r0, [r4, r0]
 	ldr r1, [r5, #0x24]
 	add r0, r0, r6
 	add r0, r0, #4
-	bl sub_02023558
+	bl GF_Camera_SetAngle
 	mov r0, #0x4b
 	lsl r0, r0, #4
 	ldr r0, [r4, r0]
 	ldr r1, [r5, #0x24]
 	add r0, r0, r6
 	ldrh r0, [r0, #0xe]
-	bl sub_02023494
+	bl GF_Camera_SetPerspectiveAngle
 	ldr r0, _022514C0 ; =0x000004B4
 	ldr r1, [r4, r0]
 	mov r0, #0xc
 	mul r0, r7
 	add r0, r1, r0
 	ldr r1, [r5, #0x24]
-	bl sub_02023514
+	bl GF_Camera_ShiftBy
 	mov r0, #0x96
 	ldr r1, _022514C4 ; =0x006A4000
 	ldr r2, [r5, #0x24]
 	lsl r0, r0, #0xc
-	bl sub_02023240
+	bl GF_Camera_SetClipBounds
 	ldr r1, [r5, #0x24]
 	add r0, sp, #8
-	bl sub_02023630
+	bl GF_Camera_GetTarget
 	ldr r0, [r5, #0x24]
-	bl sub_02023658
+	bl GF_Camera_GetBindTarget
 	ldr r1, [r5, #0x24]
 	add r0, sp, #0
-	bl sub_02023618
+	bl GF_Camera_GetAngle
 	add sp, #0x14
 	pop {r4, r5, r6, r7, pc}
 	nop
@@ -24552,7 +24552,7 @@ _02251542:
 	add r1, sp, #4
 	ldr r0, [r0, #8]
 	add r2, r5, #0
-	bl sub_02019040
+	bl SetCameraTranslationPath
 	add sp, #0x18
 	pop {r3, r4, r5, r6, r7, pc}
 	.balign 4, 0
@@ -24579,17 +24579,17 @@ ov02_02251568: ; 0x02251568
 	ldr r0, [r4, #4]
 	ldr r0, [r0, #0x24]
 	ldr r0, [r0, #8]
-	bl sub_020190E8
+	bl IsCameraTranslationFinished
 	cmp r0, #0
 	beq _0225159C
 	ldr r1, [r4, #0x24]
 	add r0, sp, #8
-	bl sub_02023630
+	bl GF_Camera_GetTarget
 	ldr r0, [r4, #0x24]
-	bl sub_02023658
+	bl GF_Camera_GetBindTarget
 	ldr r1, [r4, #0x24]
 	add r0, sp, #0
-	bl sub_02023618
+	bl GF_Camera_GetAngle
 	add sp, #0x14
 	mov r0, #1
 	pop {r3, r4, pc}
@@ -24640,18 +24640,18 @@ ov02_022515D0: ; 0x022515D0
 	ldrh r0, [r0]
 	cmp r0, #8
 	bne _02251604
-	mov r0, #0xf9
+	mov r0, #SPECIES_LUGIA
 	str r0, [sp, #0x10]
 	mov r0, #0x12
 	mov r1, #5
 	str r0, [sp, #0xc]
-	ldr r7, _022518D8 ; =0x0000090E
+	ldr r7, _022518D8 ; =SEQ_SE_GS_RUGIA_HABATAKI
 	b _02251610
 _02251604:
-	mov r0, #0xfa
+	mov r0, #SPECIES_HO_OH
 	str r0, [sp, #0x10]
 	mov r0, #0
-	ldr r7, _022518DC ; =0x0000090A
+	ldr r7, _022518DC ; =SEQ_SE_GS_HOUOU_HABATAKI
 	mov r1, #5
 	str r0, [sp, #0xc]
 _02251610:
@@ -24998,8 +24998,8 @@ _022518D0:
 	add sp, #0x38
 	pop {r3, r4, r5, r6, r7, pc}
 	nop
-_022518D8: .word 0x0000090E
-_022518DC: .word 0x0000090A
+_022518D8: .word SEQ_SE_GS_RUGIA_HABATAKI
+_022518DC: .word SEQ_SE_GS_HOUOU_HABATAKI
 	thumb_func_end ov02_022515D0
 
 	thumb_func_start ov02_022518E0
@@ -25088,7 +25088,7 @@ ov02_022518F8: ; 0x022518F8
 	ldr r0, _022519A8 ; =ov02_02251BA8
 	add r1, r5, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	ldr r1, _022519AC ; =0x000004A8
 	str r0, [r5, r1]
 	add sp, #0x14
@@ -25212,7 +25212,7 @@ _022519D4:
 	ldr r0, _02251B08 ; =ov02_02251BC4
 	ldr r1, [sp, #0x10]
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	ldr r2, _02251B0C ; =0x000004A8
 	ldr r1, [sp, #0x10]
 	str r0, [r1, r2]
@@ -25270,7 +25270,7 @@ ov02_02251B14: ; 0x02251B14
 	add r4, r0, #0
 	ldr r0, _02251B48 ; =0x000004A8
 	ldr r0, [r4, r0]
-	bl sub_0200E390
+	bl DestroySysTask
 	ldr r0, _02251B48 ; =0x000004A8
 	mov r1, #0
 	str r1, [r4, r0]
@@ -25520,11 +25520,11 @@ ov02_02251CF0: ; 0x02251CF0
 	pop {r3, r4, r5, pc}
 _02251D1A:
 	ldr r0, [r5, #0x24]
-	bl sub_02023614
+	bl GF_Camera_GetDistance
 	str r0, [r4]
 	ldr r1, [r5, #0x24]
 	add r0, sp, #0
-	bl sub_02023618
+	bl GF_Camera_GetAngle
 	add r0, sp, #0
 	ldrh r1, [r0]
 	strh r1, [r4, #4]
@@ -25536,7 +25536,7 @@ _02251D1A:
 	strh r0, [r4, #0xa]
 	ldr r1, [r5, #0x24]
 	add r0, sp, #8
-	bl sub_02023630
+	bl GF_Camera_GetTarget
 	add r3, sp, #8
 	ldmia r3!, {r0, r1}
 	add r2, sp, #0x14
@@ -25544,14 +25544,14 @@ _02251D1A:
 	ldr r0, [r3]
 	str r0, [r2]
 	ldr r0, [r5, #0x24]
-	bl sub_02023658
+	bl GF_Camera_GetBindTarget
 	add r2, r4, #0
 	add r1, r0, #0
 	add r0, sp, #0x14
 	add r2, #0xc
 	bl VEC_Subtract
 	ldr r0, [r5, #0x24]
-	bl sub_0202360C
+	bl GF_Camera_GetPerspectiveAngle
 	strh r0, [r4, #0x18]
 	ldr r0, [r5, #0x24]
 	bl sub_02023654
@@ -25561,21 +25561,21 @@ _02251D1A:
 	str r0, [r4, #0x20]
 	ldr r0, _02251DB0 ; =0x0029AEC1
 	ldr r1, [r5, #0x24]
-	bl sub_020235D4
+	bl GF_Camera_SetDistance
 	ldr r0, _02251DB4 ; =ov02_02253C74
 	ldr r1, [r5, #0x24]
-	bl sub_02023558
+	bl GF_Camera_SetAngle
 	ldr r0, _02251DB8 ; =0x000005C1
 	ldr r1, [r5, #0x24]
-	bl sub_02023494
+	bl GF_Camera_SetPerspectiveAngle
 	ldr r0, _02251DBC ; =ov02_02253BC4
 	ldr r1, [r5, #0x24]
-	bl sub_02023514
+	bl GF_Camera_ShiftBy
 	mov r0, #0x96
 	ldr r1, _02251DC0 ; =0x006A4000
 	ldr r2, [r5, #0x24]
 	lsl r0, r0, #0xc
-	bl sub_02023240
+	bl GF_Camera_SetClipBounds
 	add sp, #0x20
 	pop {r3, r4, r5, pc}
 	nop
@@ -25624,7 +25624,7 @@ ov02_02251DE8: ; 0x02251DE8
 _02251E00:
 	ldr r1, [r5, #0x24]
 	mov r0, #4
-	bl sub_02019014
+	bl CreateCameraTranslationWrapper
 	str r0, [r4, #0x24]
 	add r3, r4, #0
 	ldrh r1, [r4, #4]
@@ -25643,7 +25643,7 @@ _02251E00:
 	mov r2, #0x1e
 	str r0, [sp, #0x10]
 	ldr r0, [r4, #0x24]
-	bl sub_02019040
+	bl SetCameraTranslationPath
 	ldr r0, [r5, #0x10]
 	ldr r1, _02251E40 ; =ov02_02251E44
 	add r2, r5, #0
@@ -25663,15 +25663,15 @@ ov02_02251E44: ; 0x02251E44
 	ldr r5, [r0, #0x24]
 	ldr r6, [r5, #0x24]
 	add r0, r6, #0
-	bl sub_020190E8
+	bl IsCameraTranslationFinished
 	cmp r0, #0
 	beq _02251E70
 	add r0, r6, #0
-	bl sub_02019030
+	bl DeleteCameraTranslationWrapper
 	ldr r0, [r5, #0x1c]
 	ldr r1, [r5, #0x20]
 	ldr r2, [r4, #0x24]
-	bl sub_02023240
+	bl GF_Camera_SetClipBounds
 	mov r0, #1
 	pop {r4, r5, r6, pc}
 _02251E70:
@@ -26219,10 +26219,10 @@ _022522A8: .word ov02_02253C84
 
 	thumb_func_start ov02_022522AC
 ov02_022522AC: ; 0x022522AC
-	ldr r3, _022522B0 ; =sub_02093010
+	ldr r3, _022522B0 ; =GearPhone_ToggleRinging
 	bx r3
 	.balign 4, 0
-_022522B0: .word sub_02093010
+_022522B0: .word GearPhone_ToggleRinging
 	thumb_func_end ov02_022522AC
 
 	thumb_func_start ov02_022522B4
@@ -26759,7 +26759,7 @@ ov02_022526C8: ; 0x022526C8
 	ldr r0, _022526E8 ; =ov02_022526FC
 	add r1, r4, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	mov r0, #0
 	strb r0, [r4, #2]
 	pop {r4, pc}
@@ -26804,7 +26804,7 @@ _02252716:
 	str r0, [r2]
 	ldr r0, [r4, #8]
 	ldr r0, [r0, #0x24]
-	bl sub_0202360C
+	bl GF_Camera_GetPerspectiveAngle
 	add r1, sp, #0
 	strh r0, [r1, #8]
 	add r0, r4, #0
@@ -26826,7 +26826,7 @@ _02252746:
 	mov r0, #1
 	strb r0, [r4, #2]
 	add r0, r5, #0
-	bl sub_0200E390
+	bl DestroySysTask
 _0225275A:
 	add sp, #0xc
 	pop {r4, r5, pc}
@@ -26853,7 +26853,7 @@ ov02_02252764: ; 0x02252764
 	strh r1, [r0]
 	ldr r0, [r5, #8]
 	ldr r0, [r0, #0x24]
-	bl sub_0202360C
+	bl GF_Camera_GetPerspectiveAngle
 	add r1, r5, #0
 	add r1, #0xea
 	strh r0, [r1]
@@ -26868,7 +26868,7 @@ ov02_02252764: ; 0x02252764
 	strh r1, [r0]
 	ldr r0, _022527AC ; =ov02_0225286C
 	add r1, r5, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	pop {r3, r4, r5, pc}
 	.balign 4, 0
 _022527AC: .word ov02_0225286C
@@ -26942,11 +26942,11 @@ ov02_022527B0: ; 0x022527B0
 	bl MTX_MultVec33
 	ldr r1, [sp]
 	add r0, sp, #0x34
-	bl sub_02023204
+	bl GF_Camera_SetBindTarget
 	lsl r0, r4, #0x10
 	ldr r1, [sp]
 	lsr r0, r0, #0x10
-	bl sub_02023494
+	bl GF_Camera_SetPerspectiveAngle
 	add r0, r5, #0
 	add r0, #0xe6
 	add r5, #0xe8
@@ -26978,7 +26978,7 @@ ov02_0225286C: ; 0x0225286C
 	mov r0, #1
 	strb r0, [r4, #3]
 	add r0, r5, #0
-	bl sub_0200E390
+	bl DestroySysTask
 _02252886:
 	pop {r3, r4, r5, pc}
 	thumb_func_end ov02_0225286C

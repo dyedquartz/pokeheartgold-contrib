@@ -118,7 +118,7 @@ BOOL sub_02066BC0(SCRIPT_STATE* state, u32 a1) {
 
 void sub_02066BE8(SCRIPT_STATE* state, u32 a1, u16 value) {
     if (a1 < NELEMS(_020FE4A8)) {
-        SetScriptVar(state, VAR_UNK_4045 + a1, value);
+        SetScriptVar(state, VAR_ROAMER_RAIKOU_STATUS + a1, value);
     }
 }
 
@@ -170,7 +170,7 @@ void ScriptState_RollLotoId(SCRIPT_STATE* state) {
 void Save_LCRNGAdvanceLotoID(SAVEDATA* savedata, u16 var) {
 #pragma unused(var)
     SCRIPT_STATE* state = SavArray_Flags_get(savedata);
-    SAV_FRIEND_GRP* friend_groups = sub_0202C854(savedata);
+    SAV_FRIEND_GRP* friend_groups = Save_FriendGroup_get(savedata);
     u32 rand_id = sub_0202C7DC(friend_groups) * 1103515245 + 12345;
 
     ScriptState_SetLotoId(state, rand_id);

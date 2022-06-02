@@ -320,8 +320,8 @@ CreateSpecialFieldObjectEx: ; 0x0205E2B4
 	pop {r3, r4, r5, r6, r7, pc}
 	thumb_func_end CreateSpecialFieldObjectEx
 
-	thumb_func_start sub_0205E34C
-sub_0205E34C: ; 0x0205E34C
+	thumb_func_start CreateMapObjectFromTemplate
+CreateMapObjectFromTemplate: ; 0x0205E34C
 	push {r3, r4, r5, r6, r7, lr}
 	add r5, r0, #0
 	add r0, r1, #0
@@ -350,7 +350,7 @@ sub_0205E34C: ; 0x0205E34C
 _0205E388:
 	add r0, r6, #0
 	pop {r3, r4, r5, r6, r7, pc}
-	thumb_func_end sub_0205E34C
+	thumb_func_end CreateMapObjectFromTemplate
 
 	thumb_func_start sub_0205E38C
 sub_0205E38C: ; 0x0205E38C
@@ -1263,7 +1263,7 @@ _0205EB0A:
 	ldr r0, _0205EB28 ; =sub_0205F12C
 	add r1, r4, #0
 	add r2, r5, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	add r5, r0, #0
 	bne _0205EB1C
 	bl GF_AssertFail
@@ -2565,7 +2565,7 @@ sub_0205F340: ; 0x0205F340
 sub_0205F348: ; 0x0205F348
 	push {r3, lr}
 	bl sub_0205F340
-	bl sub_0200E390
+	bl DestroySysTask
 	pop {r3, pc}
 	thumb_func_end sub_0205F348
 

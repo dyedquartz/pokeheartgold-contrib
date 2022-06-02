@@ -31,7 +31,7 @@ scr_seq_R10_001:
 	goto _00BF
 
 _0052:
-	goto_if_unset FLAG_UNK_14A, _00BF
+	goto_if_unset FLAG_CAUGHT_ZAPDOS, _00BF
 	check_registered_phone_number PHONE_CONTACT_LT__SURGE, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 1
 	goto_if_eq _00BF
@@ -71,7 +71,7 @@ scr_seq_R10_002:
 	player_on_bike_check VAR_SPECIAL_RESULT
 	compare VAR_SPECIAL_RESULT, 1
 	goto_if_eq _0197
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 25
 	goto_if_ne _0197
@@ -143,10 +143,10 @@ _01D5:
 	play_se SEQ_SE_DP_KAIDAN2
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_R10R0202, 0, 7, 20, 0
+	warp MAP_R10R0202, 0, 7, 20, DIR_NORTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
-	scrcmd_582 18, 1423, 185
+	scrcmd_582 MAP_R10, 1423, 185
 	releaseall
 	end
 
@@ -162,10 +162,10 @@ _022D:
 	play_se SEQ_SE_DP_KAIDAN2
 	fade_screen 6, 1, 0, RGB_BLACK
 	wait_fade
-	warp MAP_R10R0201, 0, 7, 20, 0
+	warp MAP_R10R0201, 0, 7, 20, DIR_NORTH
 	fade_screen 6, 1, 1, RGB_BLACK
 	wait_fade
-	scrcmd_582 18, 1423, 185
+	scrcmd_582 MAP_R10, 1423, 185
 	releaseall
 	end
 
@@ -196,7 +196,7 @@ _02B3:
 	end
 
 _02B9:
-	setflag FLAG_UNK_14A
+	setflag FLAG_CAUGHT_ZAPDOS
 	return
 
 scr_seq_R10_005:

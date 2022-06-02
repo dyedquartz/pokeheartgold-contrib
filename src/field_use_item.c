@@ -146,10 +146,10 @@ void ItemCheckUseData_Init(FieldSystem *fsys, struct ItemCheckUseData *dat) {
     dat->standingTile = GetMetatileBehaviorAt(fsys, x, y);
 
     switch (PlayerAvatar_GetFacingDirection(fsys->playerAvatar)) {
-    case DIR_SOUTH:
+    case DIR_NORTH:
         y--;
         break;
-    case DIR_NORTH:
+    case DIR_SOUTH:
         y++;
         break;
     case DIR_EAST:
@@ -653,7 +653,7 @@ static BOOL Task_ActivateDowsingMchnUI(TaskManager *taskManager) {
 
     switch (*state_p) {
     case 0:
-        ov01_021F6A9C(fsys, 4, 0);
+        ov01_021F6A9C(fsys, 4, NULL);
         fsys->unkD2_7 = TRUE;
         (*state_p)++;
         break;

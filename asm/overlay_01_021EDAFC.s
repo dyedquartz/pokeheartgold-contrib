@@ -303,7 +303,7 @@ _021EDCD8:
 	ldr r0, [r0, #8]
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	add r0, r4, #0
 	ldr r2, _021EDD60 ; =0x000003D9
 	add r0, #8
@@ -318,14 +318,14 @@ _021EDCD8:
 	ldrb r1, [r1]
 	add r0, #0xac
 	mov r2, #4
-	bl sub_02001B9C
+	bl Create2dMenu
 	add r1, r4, #0
 	add r1, #0xb8
 	str r0, [r1]
 	ldr r0, _021EDD64 ; =ov01_021EDE8C
 	add r1, r4, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	str r0, [r4, #4]
 	add sp, #0x14
 	pop {r3, r4, pc}
@@ -514,7 +514,7 @@ _021EDEA8:
 	add r0, r4, #0
 	add r0, #0xb8
 	ldr r0, [r0]
-	bl sub_02001BE0
+	bl Handle2dMenuInput
 	mov r1, #1
 	mvn r1, r1
 	cmp r0, r1
@@ -593,7 +593,7 @@ ov01_021EDF38: ; 0x021EDF38
 	add r0, #0xb8
 	ldr r0, [r0]
 	mov r1, #0
-	bl sub_02001BC4
+	bl Delete2dMenu
 	add r0, r4, #0
 	add r0, #0xb0
 	ldr r0, [r0]
@@ -604,7 +604,7 @@ ov01_021EDF38: ; 0x021EDF38
 	ldr r0, [r0]
 	bl RemoveWindow
 	ldr r0, [r4, #4]
-	bl sub_0200E390
+	bl DestroySysTask
 	add r0, r4, #0
 	bl ov01_021EDF00
 	pop {r4, pc}
@@ -777,7 +777,7 @@ _021EE08A:
 	ldr r0, [r0, #8]
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	add r0, r4, #0
 	ldr r2, _021EE0E4 ; =0x000003D9
 	add r0, #8
@@ -803,7 +803,7 @@ _021EE08A:
 	ldr r0, _021EE0E8 ; =ov01_021EE49C
 	add r1, r4, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	str r0, [r4, #4]
 	add sp, #0x14
 	pop {r3, r4, pc}
@@ -934,7 +934,7 @@ _021EE1C2:
 	ldr r0, [r0, #8]
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	add r0, r5, #0
 	ldr r2, _021EE23C ; =0x000003D9
 	add r0, #8
@@ -976,7 +976,7 @@ _021EE1C2:
 	ldr r0, _021EE240 ; =ov01_021EE49C
 	add r1, r5, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	str r0, [r5, #4]
 	add sp, #0x14
 	pop {r3, r4, r5, r6, pc}
@@ -1443,7 +1443,7 @@ _021EE598:
 	bl DestroyMsgData
 _021EE5BE:
 	ldr r0, [r6, #4]
-	bl sub_0200E390
+	bl DestroySysTask
 	add r0, r6, #0
 	bl FreeToHeap
 	pop {r4, r5, r6, pc}
@@ -1583,7 +1583,7 @@ _021EE698:
 	ldr r0, [r0, #8]
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	add r0, r5, #0
 	ldr r2, _021EE74C ; =0x000003D9
 	add r0, #8
@@ -1629,7 +1629,7 @@ _021EE698:
 	ldr r0, _021EE750 ; =ov01_021EE7B8
 	add r1, r5, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	str r0, [r5, #4]
 	add sp, #0x18
 	pop {r4, r5, r6, pc}
@@ -1727,7 +1727,7 @@ _021EE7E4:
 	bl DestroyMsgData
 _021EE80A:
 	ldr r0, [r6, #4]
-	bl sub_0200E390
+	bl DestroySysTask
 	add r0, r6, #0
 	bl FreeToHeap
 _021EE816:
@@ -2015,7 +2015,7 @@ _021EE9B2:
 	ldr r0, [r0, #8]
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	add r0, r5, #0
 	ldr r2, _021EEA3C ; =0x000003D9
 	add r0, #8
@@ -2032,14 +2032,14 @@ _021EE9B2:
 	ldrb r1, [r1]
 	add r0, #0xac
 	mov r2, #4
-	bl sub_02001B9C
+	bl Create2dMenu
 	add r1, r5, #0
 	add r1, #0xb8
 	str r0, [r1]
 	ldr r0, _021EEA40 ; =ov01_021EDE8C
 	add r1, r5, #0
 	mov r2, #0
-	bl sub_0200E320
+	bl CreateSysTask
 	str r0, [r5, #4]
 	add sp, #0x18
 	pop {r3, r4, r5, r6, r7, pc}
@@ -2123,7 +2123,7 @@ Fsys_ShowMoneyBox: ; 0x021EEA90
 	ldr r2, _021EEB30 ; =0x000003D9
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	ldr r2, _021EEB30 ; =0x000003D9
 	add r0, r4, #0
 	mov r1, #1
@@ -2288,7 +2288,7 @@ ov01_021EEC00: ; 0x021EEC00
 	ldr r2, _021EEC64 ; =0x000003D9
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	ldr r2, _021EEC64 ; =0x000003D9
 	add r0, r4, #0
 	mov r1, #1
@@ -2450,7 +2450,7 @@ ov01_021EED60: ; 0x021EED60
 	ldr r2, _021EEE24 ; =0x000003D9
 	mov r1, #3
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	ldr r2, _021EEE24 ; =0x000003D9
 	add r0, r4, #0
 	mov r1, #1

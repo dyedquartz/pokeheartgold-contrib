@@ -18,21 +18,21 @@ scr_seq_R47_000:
 	get_game_version VAR_TEMP_x4000
 	compare VAR_TEMP_x4000, 7
 	goto_if_ne _004F
-	scrcmd_342 4, 87, 385
-	scrcmd_342 5, 87, 389
-	scrcmd_342 6, 87, 385
+	move_warp 4, 87, 385
+	move_warp 5, 87, 389
+	move_warp 6, 87, 385
 	goto _0067
 
 _004F:
-	scrcmd_342 4, 87, 389
-	scrcmd_342 5, 87, 385
-	scrcmd_342 6, 87, 385
+	move_warp 4, 87, 389
+	move_warp 5, 87, 385
+	move_warp 6, 87, 385
 _0067:
-	compare VAR_UNK_40F9, 2
+	compare VAR_SCENE_EMBEDDED_TOWER, 2
 	goto_if_eq _00E6
-	compare VAR_UNK_40F9, 3
+	compare VAR_SCENE_EMBEDDED_TOWER, 3
 	goto_if_eq _00E6
-	compare VAR_UNK_40F9, 5
+	compare VAR_SCENE_EMBEDDED_TOWER, 5
 	goto_if_ge _00EC
 	goto_if_unset FLAG_UNK_189, _009F
 	clearflag FLAG_UNK_189
@@ -62,44 +62,44 @@ _00E6:
 	end
 
 _00EC:
-	scrcmd_342 4, 87, 385
-	scrcmd_342 5, 87, 385
-	scrcmd_342 6, 87, 389
+	move_warp 4, 87, 385
+	move_warp 5, 87, 385
+	move_warp 6, 87, 389
 	goto _00E6
 	.byte 0x02, 0x00
 scr_seq_R47_002:
-	compare VAR_UNK_40F9, 5
+	compare VAR_SCENE_EMBEDDED_TOWER, 5
 	goto_if_ge _0162
 	get_game_version VAR_TEMP_x4000
 	compare VAR_TEMP_x4000, 7
 	goto_if_ne _0148
-	scrcmd_342 4, 87, 385
-	scrcmd_342 5, 87, 389
-	scrcmd_342 6, 87, 385
+	move_warp 4, 87, 385
+	move_warp 5, 87, 389
+	move_warp 6, 87, 385
 	goto _0160
 
 _0148:
-	scrcmd_342 4, 87, 389
-	scrcmd_342 5, 87, 385
-	scrcmd_342 6, 87, 385
+	move_warp 4, 87, 389
+	move_warp 5, 87, 385
+	move_warp 6, 87, 385
 _0160:
 	end
 
 _0162:
-	scrcmd_342 4, 87, 385
-	scrcmd_342 5, 87, 385
-	scrcmd_342 6, 87, 389
+	move_warp 4, 87, 385
+	move_warp 5, 87, 385
+	move_warp 6, 87, 389
 	end
 
 scr_seq_R47_001:
 	play_se SEQ_SE_DP_SELECT
 	lockall
 	faceplayer
-	goto_if_set FLAG_UNK_151, _019E
+	goto_if_set FLAG_MET_ROUTE_47_EMBEDDED_TOWER_HIKER, _019E
 	npc_msg msg_0407_R47_00000
 	wait_button_or_walk_away
 	closemsg
-	setflag FLAG_UNK_151
+	setflag FLAG_MET_ROUTE_47_EMBEDDED_TOWER_HIKER
 	releaseall
 	end
 

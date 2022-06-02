@@ -11,8 +11,8 @@ Static main
 	StackSize 0 2048
 	Object src/pm_version.o
 	Object src/main.o
-	Object asm/list_menu.o
-	Object asm/unk_02001AF4.o
+	Object src/list_menu.o
+	Object src/list_menu_2.o
 	Object src/string_util.o
 	Object asm/render_text.o
 	Object src/font.o
@@ -28,9 +28,11 @@ Static main
 	Object src/filesystem.o
 	Object src/gf_gfx_loader.o
 	Object asm/unk_02007FD8.o
-	Object asm/unk_02009D48.o
-	Object asm/unk_0200A090.o
+	Object src/unk_02009D48.o
+	Object src/unk_0200A090.o
+	Object asm/unk_0200ACF0.o
 	Object asm/unk_0200B150.o
+	Object asm/unk_0200B380.o
 	Object src/msgdata.o
 	Object src/msgfmt.o
 	Object asm/message_printer.o
@@ -57,7 +59,8 @@ Static main
 	Object asm/unk_02018000.o
 	Object asm/unk_02018380.o
 	Object asm/unk_020183F0.o
-	Object asm/unk_02019014.o
+	Object src/camera_translation.o
+	Object asm/unk_020192D0.o
 	Object src/system.o
 	Object src/heap.o
 	Object src/bg_window.o
@@ -79,7 +82,8 @@ Static main
 	Object asm/unk_02025154.o
 	Object src/timer3.o
 	Object src/error_handling.o
-	Object asm/unk_02025534.o
+	Object src/unk_02025534.o
+	Object asm/unk_02025534_s.o
 	Object asm/unk_02025C44.o
 	Object src/font_data.o
 	Object src/pm_string.o
@@ -113,7 +117,7 @@ Static main
 	Object src/sav_chatot.o
 	Object asm/unk_0202CF1C.o
 	Object asm/unk_0202D230.o
-	Object src/unk_0202D938.o
+	Object src/save_special_ribbons.o
 	Object src/roamer.o
 	Object asm/unk_0202DB34.o
 	Object asm/unk_0202DBA8.o
@@ -159,24 +163,23 @@ Static main
 	Object src/script.o
 	Object src/fieldmap.o
 	Object src/scrcmd_c.o
-	Object asm/scrcmd.o
 	Object src/scrcmd_mart.o
 	Object src/scrcmd_strbuf.o
-	Object asm/scrcmd_5.o
+	Object src/scrcmd_lottery.o
 	Object asm/scrcmd_6.o
-	Object asm/scrcmd_7.o
-	Object asm/scrcmd_8.o
+	Object src/scrcmd_battle.o
+	Object src/scrcmd_8.o
 	Object asm/scrcmd_9.o
 	Object asm/scrcmd_10.o
 	Object asm/scrcmd_11.o
-	Object asm/scrcmd_12.o
+	Object src/scrcmd_12.o
 	Object src/scrcmd_money.o
 	Object src/scrcmd_daycare.o
-	Object asm/scrcmd_15.o
+	Object src/scrcmd_party.o
 	Object src/scrcmd_dppl_prizes.o
 	Object src/scrcmd_17.o
 	Object src/scrcmd_items.o
-	Object asm/scrcmd_19.o
+	Object src/scrcmd_move_relearner.o
 	Object asm/scrcmd_20.o
 	Object asm/unk_0204F500.o
 	Object src/event_data.o
@@ -217,7 +220,7 @@ Static main
 	Object asm/unk_02062108.o
 	Object asm/unk_data_020FDB44.o
 	Object asm/unk_020632B0.o
-	Object asm/unk_020648EC.o
+	Object src/unk_020648EC.o
 	Object src/field_use_item.o
 	Object asm/unk_020658D4.o
 	Object src/sys_flags.o
@@ -276,12 +279,12 @@ Static main
 	Object asm/unk_0208B1AC.o
 	Object asm/unk_0208C3E4.o
 	Object asm/unk_0208DE40.o
-	Object asm/unk_0208E55C.o
+	Object src/ribbon.o
 	Object asm/unk_0208E600.o
 	Object asm/unk_0208F658.o
 	Object asm/unk_0208F814.o
 	Object asm/unk_0208FB64.o
-	Object asm/use_item_on_mon.o
+	Object src/use_item_on_mon.o
 	Object asm/unk_02090C94.o
 	Object asm/unk_020910D8.o
 	Object asm/unk_02091278.o
@@ -298,7 +301,7 @@ Static main
 	Object src/save_data_write_error.o
 	Object asm/unk_02092B04.o
 	Object asm/unk_02092BB8.o
-	Object asm/unk_02092BE8.o
+	Object src/unk_02092BE8.o
 	Object asm/unk_020931C4.o
 	Object asm/unk_020932A4.o
 	Object asm/unk_020932E0.o
@@ -501,7 +504,8 @@ Overlay field
     Object asm/overlay_01_02203A18.o
     Object asm/overlay_01_02203E40.o
     Object asm/overlay_01_02204004.o
-    Object asm/overlay_01_02204840.o
+    Object src/overlay_01_apricorn_tree_anim.o
+    Object src/overlay_01_rock_smash_item.o
     Object asm/overlay_01_02204ED8.o
     Object asm/overlay_01_022051EC.o
     Object asm/overlay_01_022053EC.o
@@ -808,7 +812,7 @@ Overlay OVY_60
 Overlay OVY_61
 {
     After main
-    Object asm/overlay_61.o
+    Object src/choose_starter_app.o
 }
 Overlay OVY_62
 {
@@ -974,7 +978,6 @@ Overlay OVY_94
 {
     After main
     Object src/overlay_94.o
-	
 }
 Overlay OVY_95
 {

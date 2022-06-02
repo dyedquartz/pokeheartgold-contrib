@@ -8,8 +8,8 @@
 #include "constants/trainer_class.h"
 #include "msgdata/msg/msg_0246.h"
 #include "unk_02055418.h"
-
-#define HEAP_ID_BUG_CONTEST                                  3
+#include "unk_0205BB1C.h"
+#include "save_arrays.h"
 
 const u16 sBugContestOpponentClasses[] = {
     TRAINERCLASS_BUG_CATCHER,      // Don
@@ -30,15 +30,12 @@ void BugContest_InitEncounters(BUGCONTEST *bugContest);
 void BugContest_RestoreParty_RetrieveCaughtPokemon(BUGCONTEST *bugContest);
 u16 BugContest_JudgePlayerMon(BUGCONTEST *bugContest, POKEMON *pokemon);
 
-extern u8 Save_GetLeadMonIdxForBugContest(SAVEDATA *saveData);
-extern PC_STORAGE *GetStoragePCPointer(SAVEDATA *saveData);
-
 BUGCONTEST *BugContest_new(FieldSystem *fsys, u8 weekday) {
     BUGCONTEST *bugContest;
 
-    bugContest = (BUGCONTEST *)AllocFromHeap(HEAP_ID_BUG_CONTEST, sizeof(BUGCONTEST));
-    MI_CpuFill8(bugContest, 0, sizeof(BUGCONTEST));
-    bugContest->heapId = HEAP_ID_BUG_CONTEST;
+    bugContest = (BUGCONTEST *)AllocFromHeap(3, sizeof(BUGCONTEST));
+    MI_CpuClear8(bugContest, sizeof(BUGCONTEST));
+    bugContest->heapId = 3;
     bugContest->saveData = fsys->savedata;
     bugContest->sport_balls = 20;
     bugContest->pokemon = AllocMonZeroed(bugContest->heapId);
@@ -192,7 +189,7 @@ void BugContest_BackUpParty(BUGCONTEST *bugContest) {
     bugContest->party_cur = SavArray_PlayerParty_get(bugContest->saveData);
     Party_copy(bugContest->party_cur, bugContest->party_bak);
     bugContest->party_cur_num = GetPartyCount(bugContest->party_cur);
-    bugContest->lead_mon_idx = Save_GetLeadMonIdxForBugContest(bugContest->saveData);
+    bugContest->lead_mon_idx = Save_GetPartyLeadAlive(bugContest->saveData);
     // You can only enter the contest with one pokemon, so
     // remove any Pokemon other than the first that can battle.
     for (i = 0; i < bugContest->party_cur_num - 1; i++) {

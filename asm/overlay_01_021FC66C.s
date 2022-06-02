@@ -86,7 +86,7 @@ _021FC6E2:
 	cmp r7, #1
 	bne _021FC728
 	add r0, r4, #0
-	bl sub_02092DEC
+	bl Fsys_GetGearPhoneRingManager
 	bl sub_02092FA8
 	ldr r0, [r4, #0xc]
 	bl Sav2_GameStats_get
@@ -132,7 +132,7 @@ ov01_021FC748: ; 0x021FC748
 	ldr r0, _021FC768 ; =ov01_021FC798
 	mov r2, #0x80
 	str r6, [r1]
-	bl sub_0200E320
+	bl CreateSysTask
 	pop {r4, r5, r6, pc}
 	.balign 4, 0
 _021FC768: .word ov01_021FC798
@@ -163,7 +163,7 @@ ov01_021FC784: ; 0x021FC784
 	bl sub_0201F988
 	bl FreeToHeap
 	add r0, r4, #0
-	bl sub_0200E390
+	bl DestroySysTask
 	pop {r4, pc}
 	thumb_func_end ov01_021FC784
 

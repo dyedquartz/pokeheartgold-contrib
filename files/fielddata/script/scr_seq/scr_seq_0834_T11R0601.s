@@ -17,7 +17,7 @@
 	scrdef_end
 
 scr_seq_T11R0601_006:
-	scrcmd_582 76, 1290, 209
+	scrcmd_582 MAP_T25, 1290, 209
 	goto_if_set FLAG_RESTORED_POWER, _003F
 	goto _0045
 
@@ -31,7 +31,7 @@ _0045:
 	get_phone_book_rematch PHONE_CONTACT_LT__SURGE, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 0
 	goto_if_ne _007E
-	goto_if_set FLAG_UNK_162, _007E
+	goto_if_set FLAG_TRADE_LT_SURGE_PIKACHU, _007E
 	clearflag FLAG_UNK_2F7
 _007E:
 	end
@@ -41,7 +41,7 @@ scr_seq_T11R0601_005:
 	end
 
 _008D:
-	move_person obj_T11R0601_policeman, 12, 0, 7, 3
+	move_person_facing obj_T11R0601_policeman, 12, 0, 7, DIR_EAST
 	end
 
 scr_seq_T11R0601_000:
@@ -155,7 +155,7 @@ scr_seq_T11R0601_007:
 	goto_if_ne _0242
 	npc_trade_exec VAR_SPECIAL_x8004
 	npc_trade_end
-	setflag FLAG_UNK_162
+	setflag FLAG_TRADE_LT_SURGE_PIKACHU
 	npc_msg msg_0535_T11R0601_00016
 	closemsg
 	get_player_facing VAR_SPECIAL_RESULT

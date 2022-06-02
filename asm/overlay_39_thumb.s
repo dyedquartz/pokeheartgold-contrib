@@ -2619,7 +2619,7 @@ ov39_02228370: ; 0x02228370
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _02228394
-	bl sub_0200E390
+	bl DestroySysTask
 	add r0, r4, #0
 	mov r1, #0
 	add r0, #0xa8
@@ -2680,7 +2680,7 @@ ov39_02228418: ; 0x02228418
 	push {r4, lr}
 	add r4, r0, #0
 	bl GF_RunVramTransferTasks
-	bl sub_0200B224
+	bl OamManager_ApplyAndResetBuffers
 	ldr r0, [r4, #4]
 	bl BgConfig_HandleScheduledScrollAndTransferOps
 	ldr r3, _02228438 ; =0x027E0000
@@ -2920,7 +2920,7 @@ ov39_022285CC: ; 0x022285CC
 	mov r1, #0
 	mov r2, #1
 	mov r3, #0xa
-	bl sub_0200E644
+	bl LoadUserFrameGfx2
 	mov r1, #0
 	str r1, [sp]
 	mov r0, #0x7c
@@ -2928,7 +2928,7 @@ ov39_022285CC: ; 0x022285CC
 	add r0, r4, #0
 	mov r2, #0x1f
 	mov r3, #0xb
-	bl sub_0200E3DC
+	bl LoadUserFrameGfx1
 	mov r0, #0
 	str r0, [sp]
 	str r0, [sp, #4]
@@ -3463,7 +3463,7 @@ ov39_02228A70: ; 0x02228A70
 	beq _02228A82
 	lsl r0, r0, #0x18
 	lsr r0, r0, #0x18
-	bl sub_02020094
+	bl TextPrinterCheckActive
 	cmp r0, #0
 	bne _02228A86
 _02228A82:
@@ -4061,7 +4061,7 @@ ov39_02228EC8: ; 0x02228EC8
 	mov r0, #2
 	tst r0, r1
 	bne _02228EE4
-	bl sub_02025358
+	bl System_GetTouchNew
 	cmp r0, #1
 	bne _02228F0E
 _02228EE4:

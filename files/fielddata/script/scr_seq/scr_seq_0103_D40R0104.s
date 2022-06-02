@@ -24,7 +24,7 @@ _0032:
 	end
 
 _003A:
-	move_person obj_D40R0104_bozu, 34, 1, 29, 3
+	move_person_facing obj_D40R0104_bozu, 34, 1, 29, DIR_EAST
 	setvar VAR_TEMP_x4003, 0
 	end
 
@@ -32,7 +32,7 @@ scr_seq_D40R0104_000:
 	play_se SEQ_SE_DP_SELECT
 	lockall
 	faceplayer
-	goto_if_set FLAG_UNK_117, _010D
+	goto_if_set FLAG_CAUGHT_LUGIA, _010D
 	get_game_version VAR_SPECIAL_RESULT
 	compare VAR_SPECIAL_RESULT, 8
 	goto_if_eq _0093

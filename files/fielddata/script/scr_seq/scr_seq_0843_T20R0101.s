@@ -28,26 +28,26 @@ scr_seq_T20R0101_010:
 	goto_if_set FLAG_ELMS_LAB_PREVENT_PLAYER_ESCAPE, _00B8
 	compare VAR_SCENE_ELMS_LAB, 0
 	goto_if_ne _0070
-	move_person obj_T20R0101_doctor, 4, 0, 5, 1
+	move_person_facing obj_T20R0101_doctor, 4, 0, 5, DIR_SOUTH
 	goto _00B4
 
 _0070:
 	compare VAR_SCENE_ELMS_LAB, 3
 	goto_if_ne _008F
-	move_person obj_T20R0101_doctor, 4, 0, 5, 1
+	move_person_facing obj_T20R0101_doctor, 4, 0, 5, DIR_SOUTH
 	goto _00B4
 
 _008F:
 	compare VAR_SCENE_ELMS_LAB, 8
 	goto_if_ne _00B4
-	move_person obj_T20R0101_doctor, 4, 0, 5, 1
-	move_person obj_T20R0101_var_1, 7, 0, 12, 3
+	move_person_facing obj_T20R0101_doctor, 4, 0, 5, DIR_SOUTH
+	move_person_facing obj_T20R0101_var_1, 7, 0, 12, DIR_EAST
 _00B4:
 	scrcmd_621
 	end
 
 _00B8:
-	move_person obj_T20R0101_doctor, 4, 0, 5, 3
+	move_person_facing obj_T20R0101_doctor, 4, 0, 5, DIR_EAST
 	goto _00B4
 
 scr_seq_T20R0101_011:
@@ -279,7 +279,7 @@ _03BA:
 	get_party_count VAR_SPECIAL_RESULT
 	compare VAR_SPECIAL_RESULT, 0
 	goto_if_eq _03F5
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	compare VAR_TEMP_x4001, 172
 	goto_if_ne _03F5
@@ -399,7 +399,7 @@ _0550:
 	end
 
 _055F:
-	get_lead_mon_index VAR_TEMP_x4000
+	get_party_lead_alive VAR_TEMP_x4000
 	get_partymon_species VAR_TEMP_x4000, VAR_TEMP_x4001
 	scrcmd_149 0
 	compare VAR_TEMP_x4001, 175
@@ -1170,7 +1170,7 @@ _0FDC:
 	step 13, 1
 	step_end
 _0FE4:
-	scrcmd_382 VAR_SPECIAL_RESULT, VAR_TEMP_x4000
+	mon_get_friendship VAR_SPECIAL_RESULT, VAR_TEMP_x4000
 	compare VAR_SPECIAL_RESULT, 220
 	goto_if_ge _0FFF
 	goto _03F5
